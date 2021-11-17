@@ -1,16 +1,65 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 * {
-  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+}
+
+.bg__container {
+  height: 100vh;
+  background-image: url("../public/image/bg.png");
+  /* background-repeat: no-repeat; */
+  background-size: contain;
+}
+.bg__logo {
+  /* padding: 100px; */
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.bg__title {
+  color: white;
+  font-weight: 700;
+  size: 24px;
+}
+
+.bg__desc {
+  size: 16px;
+  color: white;
+  font-weight: 200;
+}
+
+.bg__form__title {
+  font-weight: 700;
+  size: 24px;
+  line-height: 32.74px;
+}
+.bg__form__desc {
+  font-size: 16px;
+  font-weight: 200;
+  color: #3a3d4299;
+}
+
+.bg__right__side {
+  padding-top: 50px;
+  margin-left: 20px;
+}
+
+.auth__input__span {
+  border: none !important;
+  border-bottom: 1px solid #a9a9a999 !important;
+  background-color: white !important;
+  border-radius: 0 !important;
+}
+.auth__input input {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #a9a9a999;
+}
+
+.auth__btn {
+  width: 100%;
+  color: white !important;
+  border-radius: 12px !important;
+}
+
+.auth__text {
+  font-size: 13px !important;
 }
