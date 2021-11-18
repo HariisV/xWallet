@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   msg: "",
   userLogin: {},
+  isPin: true,
 };
 
 const login = (state = initialState, action) => {
@@ -25,6 +26,32 @@ const login = (state = initialState, action) => {
       };
     }
     case "LOGIN_REJECTED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        idUser: "",
+        msg: action.payload.response.data.msg,
+      };
+    }
+    case "GETUSER_PENDING": {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    }
+    case "GETUSER_FULFILLED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        idUser: action.payload.data.data.id,
+        msg: action.payload.data.msg,
+        userLogin: action.payload.data.data,
+      };
+    }
+    case "GETUSER_REJECTED": {
       return {
         ...state,
         isLoading: false,

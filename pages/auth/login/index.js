@@ -1,46 +1,75 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import { connect } from "react-redux";
-import { loginUser } from "stores/action/auth";
+import { loginUser, getUserLogin } from "stores/action/auth";
 import { getDataCookie } from "middleware/authorizationPage";
 import Cookie from "js-cookie";
 import Leftbar from "components/module/auth/sidebar";
+import { useRouter } from "next/router";
+import { Notify, ContainerToast } from "components/reusable/notify";
+import Link from "next/link";
 
-export async function getServerSideProps(context) {
-  const dataCookie = await getDataCookie(context);
-  if (dataCookie.isLogin) {
-    // return {
-    //   redirect: {
-    //     destination: "/main/home",
-    //     permanent: false,
-    //   },
-    // };
-  }
-  return { props: {} };
-}
-
+// export async function getServerSideProps(context) {
+//   const dataCookie = await getDataCookie(context);
+//   if (dataCookie.isLogin) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return { props: {} };
+// }
+const initialState = {
+  email: "",
+  password: "",
+};
 const Login = (props) => {
-  const [form, setForm] = useState({});
+  const [isLoading, setIsloading] = useState(false);
+  const [isNull, setIsNull] = useState(true);
+  const router = useRouter();
+  const [form, setForm] = useState(initialState);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if (form.email && form.password) {
+      setIsNull(false);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsloading(true);
     props
       .loginUser(form)
       .then((res) => {
         localStorage.setItem("token", res.value.data.data.token);
         Cookie.set("token", res.value.data.data.token);
-        this.props.history.push("/");
+        props.getUserLogin(res.value.data.data.id);
+        Notify("Login Berhasil !", 200);
+
+        if (res.value.data.data.pin === null) {
+          Notify("Please Set Your Pin !", 400);
+          router.push("/auth/pin");
+        } else {
+          setTimeout(() => {
+            router.push("/");
+          }, 1000);
+        }
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsloading(false);
+          setForm(initialState);
+        }, 500);
       });
   };
   return (
     <div className="row p-0 m-0">
+      <ContainerToast />
       <Leftbar />
       <div className="col-md-4 bg__right__side">
         <h5 className="bg__form__title mb-3">
@@ -60,6 +89,7 @@ const Login = (props) => {
               type="text"
               className="form-control"
               name="email"
+              value={form.email}
               onChange={handleChange}
               placeholder="Input Your Mail"
             />
@@ -73,29 +103,34 @@ const Login = (props) => {
               className="form-control"
               placeholder="Enter Your Password"
               name="password"
+              value={form.password}
               onChange={handleChange}
             />
           </div>
           <p className="text-end auth__text mb-4">
-            <a href="" style={{ color: "#3A3D42CC" }}>
-              Forgot password?
-            </a>
+            <Link href="/auth/forgot-password">Forgot password?</Link>
           </p>
-          {console.log(props.auth)}
-          <button className="btn btn-primary auth__btn p-2 font-light">
-            {props.auth.isLoading
-              ? `<>
+          {isNull ? (
+            <a className="btn btn-secondary auth__btn p-2 font-light">Login</a>
+          ) : (
+            <button className="btn btn-primary auth__btn p-2 font-light">
+              {isLoading ? (
+                <>
                   <div className="spinner-border" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </div>
-                </>`
-              : "Login"}
-          </button>
+                </>
+              ) : (
+                "Login"
+              )}
+            </button>
+          )}
+
           <p className="text-center mt-3 auth__text">
             Don’t have an account? Let’s{" "}
-            <a href="" style={{ color: "#3A3D42CC" }}>
+            <Link href="/auth/register" style={{ color: "#3A3D42CC" }}>
               Sign Up
-            </a>
+            </Link>
           </p>
         </form>
       </div>
@@ -106,5 +141,5 @@ const Login = (props) => {
 const mapStateToProps = (state) => {
   return { auth: state.auth };
 };
-const mapDispatchToProps = { loginUser };
+const mapDispatchToProps = { loginUser, getUserLogin };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -35,7 +35,6 @@ export default function login() {
       .catch((err) => {
         console.log(err.response);
       });
-    console.log(form);
   };
   const handleChangeText = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

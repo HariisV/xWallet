@@ -2,25 +2,22 @@ import axios from "axios";
 import Cookie from "js-cookie";
 
 const axiosApiIntances = axios.create({
-  baseURL: "https://zwalet.herokuapp.com",
+  baseURL: "http://localhost:3001",
 });
 
-if (Cookie.get("token")) {
-  // Add a request interceptor
-  axiosApiIntances.interceptors.request.use(
-    function (config) {
-      // Do something before request is sent
-      config.headers = {
-        Authorization: `Bearer ${Cookie.get("token")}`,
-      };
-      return config;
-    },
-    function (error) {
-      // Do something with request error
-      return Promise.reject(error);
-    }
-  );
-}
+axiosApiIntances.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+    config.headers = {
+      Authorization: `Bearer ${Cookie.get("token")}`,
+    };
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
 
 // Add a response interceptor
 axiosApiIntances.interceptors.response.use(

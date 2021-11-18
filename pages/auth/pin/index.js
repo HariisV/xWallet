@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Styles from "./pin.module.css";
+import axios from "utils/axios";
+import { connect } from "react-redux";
+import { Notify, ContainerToast } from "components/reusable/notify";
+
 const inputStyle = {
   width: "50px",
   height: "65px",
@@ -15,7 +19,8 @@ const inputContainer = {
   width: "100%",
   // margin: "auto",
 };
-export default function Pin() {
+const Pin = (props) => {
+  const [isNull, setIsNull] = useState(true);
   const [pin, setPin] = useState({});
   const addPin = (event) => {
     if (event.target.value) {
@@ -32,11 +37,31 @@ export default function Pin() {
   const handleSubmit = () => {
     const allPin =
       pin.pin1 + pin.pin2 + pin.pin3 + pin.pin4 + pin.pin5 + pin.pin6;
-    console.log(allPin);
+    const setData = {
+      pin: allPin,
+    };
+    axios
+      .patch(`/user/pin/${props.auth.idUser}`, setData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
+  // useEffect(() => {
+  //   if (pin.pin1 && pin.pin2 && pin.pin3 && pin.pin4 && pin.pin5 && pin.pin6) {
+  //     setIsNull(false);
+  //   }
+  //   return () => {
+  //     setIsNull(false);
+  //   };
+  // }, [pin]);
   return (
     <div className="row p-0 m-0">
+      <ContainerToast />
+
       <div className="col-md-6 bg__container">
         <img
           src="/image/logo.svg"
@@ -96,6 +121,7 @@ export default function Pin() {
                     style={inputStyle}
                     className={`${Styles.input__pin}`}
                     maxLength="1"
+                    required
                     onChange={(event) => addPin(event)}
                     name="3"
                     id="pin-3"
@@ -136,8 +162,10 @@ export default function Pin() {
           </div>
 
           <button
-            className="btn btn-primary auth__btn p-2 font-light mt-5"
-            onClick={handleSubmit}
+            className={`btn ${
+              isNull ? "btn-secondary" : "btn-primary"
+            } auth__btn p-2 font-light mt-5`}
+            onClick={isNull ? null : handleSubmit}
           >
             Login
           </button>
@@ -145,4 +173,9 @@ export default function Pin() {
       </div>
     </div>
   );
-}
+};
+const mapStateToProps = (state) => {
+  return { auth: state.auth };
+};
+const mapDispatchToProps = {};
+export default connect(mapStateToProps, mapDispatchToProps)(Pin);

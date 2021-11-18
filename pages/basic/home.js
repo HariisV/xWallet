@@ -16,7 +16,7 @@ export async function getServerSideProps(context) {
   }
 }
 export default function Profile(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <Layout title="Profile">
       <Navbar />

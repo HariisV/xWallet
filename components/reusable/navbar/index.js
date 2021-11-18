@@ -1,6 +1,18 @@
 import Image from "next/image";
 import Styles from "components/reusable/navbar/navbar.module.css";
+// import { getDataCookie } from "middleware/authorizationPage";
 
+// export async function getServerSideProps(context) {
+//   const dataCookie = await getDataCookie(context);
+//   if (!dataCookie.isLogin) {
+//     return {
+//       redirect: {
+//         destination: "/auth/login",
+//         permanent: false,
+//       },
+//     };
+//   }
+// }
 export default function Navbar() {
   return (
     <>
@@ -22,7 +34,7 @@ export default function Navbar() {
               />
               <div className={`d-block ${Styles.navbar__user}`}>
                 <p className={`${Styles.navbar__user__name}`}>
-                  Robert Chandler
+                  Robert Chandlerasd
                 </p>
                 <small className={`${Styles.navbar__user__phone}`}>
                   +62 8139 3877 7946

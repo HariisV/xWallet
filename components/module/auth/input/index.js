@@ -2,16 +2,22 @@ import React from "react";
 
 export default function index(props) {
   return (
-    <div className="input-group mb-4">
-      <span className="input-group-text auth__input__span" id="basic-addon1">
+    <div className={`input-group ${props.isInvalid ? "mt-2" : "mt-4"}`}>
+      <span
+        className={`input-group-text ${
+          props.isInvalid ? " auth__input__span_invalid" : " auth__input__span"
+        }`}
+        // style={{ borderBottom: "1px solid red" }}
+        id="basic-addon1"
+      >
         <img src={props.icon} alt="" />
       </span>
       <input
         type={props.type}
-        className="form-control"
-        name={props.name}
+        className={`form-control ${props.isInvalid ? "is-invalid" : ""}`}
         placeholder={props.placeholder}
-        onChange={() => props.onChange(event)}
+        value={props.value}
+        {...props.reactForm}
       />
     </div>
   );
