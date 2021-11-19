@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import Leftbar from "components/module/auth/sidebar";
-import Input from "components/module/auth/input";
+import Leftbar from "components/auth/sidebar";
+import Input from "components/auth/input";
 import axios from "utils/axios";
 import { useRouter } from "next/router";
-import { Notify, ContainerToast } from "components/reusable/notify";
+import { Notify, ContainerToast } from "components/layout/notify";
+import Link from "next/link";
 
 export default function Registers() {
   const router = useRouter();
@@ -113,9 +114,9 @@ export default function Registers() {
           </button>
           <p className="text-center mt-3 auth__text">
             Already have an account? Let’s{" "}
-            <a href="" style={{ color: "#3A3D42CC" }}>
+            <Link href="/auth/login" style={{ color: "#3A3D42CC" }}>
               Login
-            </a>
+            </Link>
           </p>
         </form>
       </div>

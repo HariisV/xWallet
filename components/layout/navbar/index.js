@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Styles from "components/reusable/navbar/navbar.module.css";
+import Styles from "components/layout/navbar/navbar.module.css";
 // import { getDataCookie } from "middleware/authorizationPage";
 
 // export async function getServerSideProps(context) {

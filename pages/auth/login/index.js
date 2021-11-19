@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { loginUser, getUserLogin } from "stores/action/auth";
 import { getDataCookie } from "middleware/authorizationPage";
 import Cookie from "js-cookie";
-import Leftbar from "components/module/auth/sidebar";
+import Leftbar from "components/auth/sidebar";
 import { useRouter } from "next/router";
-import { Notify, ContainerToast } from "components/reusable/notify";
+import { Notify, ContainerToast } from "components/layout/notify";
 import Link from "next/link";
 
 // export async function getServerSideProps(context) {
@@ -29,7 +29,7 @@ const Login = (props) => {
   const [isNull, setIsNull] = useState(true);
   const router = useRouter();
   const [form, setForm] = useState(initialState);
-
+  const [isError, setIsError] = useState(false);
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     if (form.email && form.password) {
@@ -50,7 +50,9 @@ const Login = (props) => {
 
         if (res.value.data.data.pin === null) {
           Notify("Please Set Your Pin !", 400);
-          router.push("/auth/pin");
+          setTimeout(() => {
+            router.push("/auth/pin");
+          }, 2000);
         } else {
           setTimeout(() => {
             router.push("/");
@@ -58,7 +60,9 @@ const Login = (props) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        Notify(err.response.data.msg, 400);
+        setIsError(true);
+        // console.log(err.response);
       })
       .finally(() => {
         setTimeout(() => {
@@ -87,7 +91,7 @@ const Login = (props) => {
             </span>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${isError ? "is-invalid" : ""}`}
               name="email"
               value={form.email}
               onChange={handleChange}
@@ -100,7 +104,7 @@ const Login = (props) => {
             </span>
             <input
               type="password"
-              className="form-control"
+              className={`form-control  ${isError ? "is-invalid" : ""}`}
               placeholder="Enter Your Password"
               name="password"
               value={form.password}

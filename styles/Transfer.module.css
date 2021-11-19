@@ -38,3 +38,63 @@
   font-weight: bold;
   font-size: 16px;
 }
+
+.transfer__transfer__title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.transfer__transfer__value {
+  font-weight: 700;
+  font-size: 16px;
+  color: #514f5b;
+}
+
+.transfer__transfer__name {
+  font-size: 14px;
+  color: #7a7886;
+  font-weight: 400;
+}
+
+.group {
+  margin-bottom: 30px;
+}
+
+.btn {
+  padding: 10px 30px !important;
+  border-radius: 10px;
+}
+
+.modal__title {
+  font-size: 16px;
+  font-weight: 700;
+}
+.modal__border {
+  border-radius: 120px !important;
+}
+
+.input__pin:-webkit-input-value {
+  color: white;
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 25px;
+}
+
+.input__pin {
+  color: #3a3d42;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  /* align-items: center; */
+}
+
+.transfer__transfer__text {
+  font-weight: 700;
+  font-size: 16px;
+}
+.btn_close {
+  padding: 10px 10px;
+  /* border-radius: 100px; */
+  font-weight: 600;
+  margin-right: 10px;
+  color: black !important;
+}

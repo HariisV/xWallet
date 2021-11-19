@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Navbar from "components/reusable/navbar";
-import Footer from "components/reusable/footer";
+import Navbar from "components/layout/navbar";
+import Footer from "components/layout/footer";
 
 export default function Home() {
   return (

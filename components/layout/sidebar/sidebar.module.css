@@ -49,3 +49,36 @@
   /* background-color: red; */
   /* margin-left: 15px; */
 }
+
+.modal__title {
+  font-size: 16px;
+  font-weight: 700;
+}
+.input__nominal:-webkit-input-value {
+  color: #6379f4 !important;
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 25px;
+}
+.input__nominal:focus {
+  border: none !important;
+}
+.input__nominal {
+  color: #6379f4;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  /* align-items: center; */
+}
+
+.btn {
+  padding: 10px 40px;
+  border-radius: 13px;
+  font-weight: 600;
+}
+.btn_close {
+  padding: 10px 10px;
+  /* border-radius: 100px; */
+  font-weight: 600;
+  margin-right: 10px;
+  color: black !important;
+}

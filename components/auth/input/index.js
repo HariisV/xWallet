@@ -17,6 +17,8 @@ export default function index(props) {
         className={`form-control ${props.isInvalid ? "is-invalid" : ""}`}
         placeholder={props.placeholder}
         value={props.value}
+        name={props.name}
+        onChange={(e) => props.onChanges(e)}
         {...props.reactForm}
       />
     </div>

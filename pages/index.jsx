@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 // import styles from "../styles/Home.module.css";
-import Navbar from "components/reusable/navbar";
-import Footer from "components/reusable/footer";
-import Sidebar from "components/reusable/sidebar";
-import Layout from "components/Layout";
+import Navbar from "components/layout/navbar";
+import Footer from "components/layout/footer";
+import Sidebar from "components/layout/sidebar";
+import Layout from "components/layout";
 import Styles from "styles/Home.module.css";
-import ListUser from "components/module/list-user/user-home";
+import ListUser from "components/layout/list-user/user-home";
 
 export default function Home() {
   return (

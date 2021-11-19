@@ -1,0 +1,60 @@
+.navbar__image {
+  width: 70px;
+  height: 70px;
+}
+
+.geser {
+  margin-left: 5px;
+  color: #7a7886;
+}
+.btn__list {
+  width: 50%;
+  background-color: #d3d8e275;
+  padding: 10px 15px 10px 30px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.btn__detail p {
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+}
+.nama__user {
+  font-size: 24px;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  color: #4d4b57;
+}
+
+.mobile__user {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+  color: #4d4b57;
+}
+.group {
+  margin-bottom: 30px;
+}
+.detail__name {
+  font-size: 16px;
+  color: #7a7886;
+  font-weight: 300;
+}
+.detail__value {
+  font-weight: 700;
+  font-size: 22px;
+  color: #514f5b;
+}
+
+.title {
+  font-weight: 700;
+  color: #3a3d42;
+}
+
+.desc {
+  color: #7a7886;
+  font-weight: 400;
+}

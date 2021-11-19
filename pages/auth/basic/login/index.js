@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
-import Layout from "components/Layout";
+import Layout from "components/layout";
 import axios from "utils/axios";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
