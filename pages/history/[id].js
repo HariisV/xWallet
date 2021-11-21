@@ -47,7 +47,6 @@ const History = (props) => {
         });
     }
   };
-  console.log("WOKWOWKOWK", dataHistory.status);
   let d = new Date(dataHistory.createdAt);
   d = `${d.toLocaleDateString("id-ID", {
     weekday: "long",
@@ -58,7 +57,7 @@ const History = (props) => {
     minute: "numeric",
   })}`;
   return (
-    <Layout title="Transfer Money | xWallet - Send your money without fee">
+    <Layout title="History | xWallet - Send your money without fee">
       <div className="" style={{ background: "rgb(99 121 244 / 4%)" }}>
         <Navbar />
         <section className="sidebar mt-5">

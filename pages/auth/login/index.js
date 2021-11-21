@@ -6,6 +6,7 @@ import Leftbar from "components/auth/sidebar";
 import { useRouter } from "next/router";
 import { Notify, ContainerToast } from "components/layout/notify";
 import Link from "next/link";
+import Layout from "components/layout";
 
 import { getDataCookie } from "middleware/authorizationPage";
 export async function getServerSideProps(context) {
@@ -72,74 +73,78 @@ const Login = (props) => {
       });
   };
   return (
-    <div className="row p-0 m-0">
-      <Leftbar />
-      <div className="col-md-4 bg__right__side">
-        <h5 className="bg__form__title mb-3">
-          Start Accessing Banking Needs With All Devices and All Platforms With
-          30.000+ Users
-        </h5>
-        <p className="bg__form__desc mb-5">
-          Transfering money is eassier than ever, you can access Zwallet
-          wherever you are.
-        </p>
-        <form action="" className="auth__input" onSubmit={handleSubmit}>
-          <div className="input-group mb-3">
-            <span className="input-group-text auth__input__span">
-              <img src="/icon/mail.svg" alt="" />
-            </span>
-            <ContainerToast />
-
-            <input
-              type="text"
-              className={`form-control ${isError ? "is-invalid" : ""}`}
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="Input Your Mail"
-            />
-          </div>
-          <div className="input-group mb-3 mt-5">
-            <span className="input-group-text auth__input__span">
-              <img src="/icon/lock.svg" alt="" />
-            </span>
-            <input
-              type="password"
-              className={`form-control  ${isError ? "is-invalid" : ""}`}
-              placeholder="Enter Your Password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-            />
-          </div>
-          <p className="text-end auth__text mb-4">
-            <Link href="/auth/forgot-password">Forgot password?</Link>
+    <Layout title="History | xWallet - Send your money without fee">
+      <div className="row p-0 m-0">
+        <Leftbar />
+        <div className="col-md-4 bg__right__side">
+          <h5 className="bg__form__title mb-3">
+            Start Accessing Banking Needs With All Devices and All Platforms
+            With 30.000+ Users
+          </h5>
+          <p className="bg__form__desc mb-5">
+            Transfering money is eassier than ever, you can access Zwallet
+            wherever you are.
           </p>
-          {isNull ? (
-            <a className="btn btn-secondary auth__btn p-2 font-light">Login</a>
-          ) : (
-            <button className="btn btn-primary auth__btn p-2 font-light">
-              {isLoading ? (
-                <>
-                  <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                </>
-              ) : (
-                "Login"
-              )}
-            </button>
-          )}
+          <form action="" className="auth__input" onSubmit={handleSubmit}>
+            <div className="input-group mb-3">
+              <span className="input-group-text auth__input__span">
+                <img src="/icon/mail.svg" alt="" />
+              </span>
+              <ContainerToast />
 
-          <p className="text-center mt-3 auth__text">
-            Don’t have an account? Let’s{" "}
-            <Link href="/auth/register" style={{ color: "#3A3D42CC" }}>
-              Sign Up
-            </Link>
-          </p>
-        </form>
+              <input
+                type="text"
+                className={`form-control ${isError ? "is-invalid" : ""}`}
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Input Your Mail"
+              />
+            </div>
+            <div className="input-group mb-3 mt-5">
+              <span className="input-group-text auth__input__span">
+                <img src="/icon/lock.svg" alt="" />
+              </span>
+              <input
+                type="password"
+                className={`form-control  ${isError ? "is-invalid" : ""}`}
+                placeholder="Enter Your Password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+              />
+            </div>
+            <p className="text-end auth__text mb-4">
+              <Link href="/auth/forgot-password">Forgot password?</Link>
+            </p>
+            {isNull ? (
+              <a className="btn btn-secondary auth__btn p-2 font-light">
+                Login
+              </a>
+            ) : (
+              <button className="btn btn-primary auth__btn p-2 font-light">
+                {isLoading ? (
+                  <>
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </>
+                ) : (
+                  "Login"
+                )}
+              </button>
+            )}
+
+            <p className="text-center mt-3 auth__text">
+              Don’t have an account? Let’s{" "}
+              <Link href="/auth/register" style={{ color: "#3A3D42CC" }}>
+                Sign Up
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

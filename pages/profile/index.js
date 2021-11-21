@@ -32,7 +32,7 @@ const Profile = (props) => {
   };
   const userLogin = props.auth.userLogin;
   return (
-    <Layout title="Transfer Money | xWallet - Send your money without fee">
+    <Layout title="Profile | xWallet - Send your money without fee">
       <div className="" style={{ background: "rgb(99 121 244 / 4%)" }}>
         <Navbar />
         <section className="sidebar mt-5">
