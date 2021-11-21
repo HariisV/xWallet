@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Layout from "components/layout";
 import Navbar from "components/layout/navbar";
@@ -13,11 +14,6 @@ const History = (props) => {
   const { id } = router.query;
   const [dataHistory, setDataHistory] = useState({});
   const [user, setUser] = useState({});
-
-  useEffect(() => {
-    getHistoryById();
-  }, [id]);
-
   const getHistoryById = () => {
     axios
       .get(`/transaction/history/${id}`)
@@ -36,7 +32,9 @@ const History = (props) => {
         console.log("ADA EROR NICH BRO ", err.response);
       });
   };
-
+  useEffect(() => {
+    getHistoryById();
+  }, [id]);
   const getReceiver = (data) => {
     if (data) {
       axios

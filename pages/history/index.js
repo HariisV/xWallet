@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Layout from "components/layout";
@@ -40,7 +41,7 @@ const History = (props) => {
         router.push(`?page=${page}&filter=${filter}`);
       }
     });
-  }, [page, filter, props, router]);
+  }, [page, filter]);
   const handlePagination = (event) => {
     setPage(Number(event.selected) + 1);
     router.push(`?page=${Number(event.selected) + 1}&filter=${filter}`);

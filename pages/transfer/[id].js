@@ -20,7 +20,10 @@ const History = (props) => {
 
   useEffect(() => {
     getDetailUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+  // useEffect(getDetailUser, [id]);
+
   const getDetailUser = () => {
     axios
       .get(`/user/profile/${id}`)

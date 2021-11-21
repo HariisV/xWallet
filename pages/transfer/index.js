@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Layout from "components/layout";
 import Navbar from "components/layout/navbar";
@@ -9,20 +8,7 @@ import ListUser from "components/layout/list-user/user-transfer";
 import axios from "utils/axios";
 import Pagination from "react-paginate";
 import { useRouter } from "next/router";
-import { getDataCookie } from "middleware/authorizationPage";
 
-export async function getServerSideProps(context) {
-  const dataCookie = await getDataCookie(context);
-  if (!dataCookie.isLogin) {
-    return {
-      redirect: {
-        destination: "/auth/login",
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
-}
 export default function History() {
   const router = useRouter();
   const { page: pageQ, search: searchQ } = router.query;
@@ -32,7 +18,6 @@ export default function History() {
   const [search, setSearch] = useState(searchQ ? searchQ : "");
   const [tidakDitemukan, setTidakDitemukan] = useState("");
   const [pageInfo, setPageInfo] = useState([]);
-
   const getAllUser = () => {
     axios
       .get(`/user?page=${page}&limit=4&search=${search}&sort=firstName ASC`)
@@ -51,6 +36,7 @@ export default function History() {
   useEffect(() => {
     getAllUser();
     // router.push(`?page=${page}&search=${search}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageQ, search, searchQ]);
   const handleEnter = (e) => {
     if (e.key === "Enter") {
