@@ -12,20 +12,44 @@ const History = (props) => {
   const router = useRouter();
   const { id } = router.query;
   const [dataHistory, setDataHistory] = useState({});
+  const [user, setUser] = useState({});
+
   useEffect(() => {
     getHistoryById();
   }, [id]);
+
   const getHistoryById = () => {
     axios
       .get(`/transaction/history/${id}`)
       .then((res) => {
-        setDataHistory(res.data.data[0]);
+        // console.log(res);
+        setDataHistory(res.data.data);
+        getReceiver(
+          `${
+            res.data.data.types == "accept"
+              ? res.data.data.senderId
+              : res.data.data.receiverId
+          }`
+        );
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log("ADA EROR NICH BRO ", err.response);
       });
   };
 
+  const getReceiver = (data) => {
+    if (data) {
+      axios
+        .get(`/user/profile/${data}`)
+        .then((res) => {
+          setUser(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
+  };
+  console.log("WOKWOWKOWK", dataHistory.status);
   let d = new Date(dataHistory.createdAt);
   d = `${d.toLocaleDateString("id-ID", {
     weekday: "long",
@@ -47,11 +71,15 @@ const History = (props) => {
               <div className={`col-md-9`}>
                 <div className="card card__shadow ">
                   <Finish
-                    amount={dataHistory.amount}
-                    name={`${dataHistory.firstName} ${dataHistory.lastName}`}
-                    image={dataHistory.image}
                     date={d}
                     id={id}
+                    name={`${user.firstName} ${user.lastName}`}
+                    image={user.image}
+                    noTelp={user.noTelp}
+                    amount={dataHistory.amount}
+                    type={dataHistory.types}
+                    notes={dataHistory.notes}
+                    status={dataHistory.status}
                   />
                 </div>
               </div>

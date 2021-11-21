@@ -8,7 +8,20 @@ import ListUser from "components/layout/list-user/user-transfer";
 import axios from "utils/axios";
 import Pagination from "react-paginate";
 import { useRouter } from "next/router";
+import { getDataCookie } from "middleware/authorizationPage";
 
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+  if (!dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}
 export default function History() {
   const router = useRouter();
   const { page: pageQ, search: searchQ } = router.query;
@@ -18,6 +31,7 @@ export default function History() {
   const [search, setSearch] = useState(searchQ ? searchQ : "");
   const [tidakDitemukan, setTidakDitemukan] = useState("");
   const [pageInfo, setPageInfo] = useState([]);
+
   const getAllUser = () => {
     axios
       .get(`/user?page=${page}&limit=4&search=${search}&sort=firstName ASC`)

@@ -8,11 +8,11 @@ import ListUser from "components/layout/list-user/user-home";
 import { connect } from "react-redux";
 import { getUserLogin } from "stores/action/auth";
 import { getHistory } from "stores/action/history";
-import { getDataCookie } from "middleware/authorizationPage";
 import ModalTopup from "components/topup";
 import Link from "next/link";
 import axios from "utils/axios";
 import { Bar } from "react-chartjs-2";
+import { getDataCookie } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
@@ -104,15 +104,17 @@ const Dashboard = (props) => {
                       className="p-3 p__card_dashboard"
                       // style={{ float: "right" }}
                     >
-                      <button className="btn btn-outline-light btn__sm_mobile p-2">
-                        <img
-                          src="/image/arrow-up.png"
-                          width="28px"
-                          height="28px"
-                          alt=""
-                        />
-                        Transfers
-                      </button>
+                      <Link href="/transfer">
+                        <a className="btn btn-outline-light btn__sm_mobile p-2">
+                          <img
+                            src="/image/arrow-up.png"
+                            width="28px"
+                            height="28px"
+                            alt=""
+                          />
+                          Transfers
+                        </a>
+                      </Link>
                       <button
                         className="btn btn-outline-light btn__sm_mobile mt-3 p-2"
                         width="28px"

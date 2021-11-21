@@ -31,14 +31,37 @@ export default function Confirm(props) {
         console.log(err.response);
       });
   };
+  console.log(props);
   return (
     <div>
       <div className="card-body  mx-3">
         <div className=" bg__right__side text-center ">
-          <img src="/image/success.png" alt="" width="80px" />
-          <h5 className="bg__form__title mb-3 mt-3">Transfer Success</h5>
+          {props.status == "success" ? (
+            <img src="/image/success.png" alt="" width="80px" />
+          ) : (
+            <img src="/image/pending.jpg" alt="" width="80px" />
+          )}
+          <h5 className="bg__form__title mb-3 mt-3">
+            {props.type == "accept"
+              ? "Accept"
+              : props.type == "send"
+              ? "Transfer"
+              : props.type == "topup"
+              ? "Topup"
+              : ""}{" "}
+            {props.status == "pending" ? "Pending" : "Success"}
+          </h5>
         </div>
-        <p className={`${Styles.transfer__transfer__text}`}>Details Transfer</p>
+        <p className={`${Styles.transfer__transfer__text}`}>
+          Details{" "}
+          {props.type == "accept"
+            ? "Accept"
+            : props.type == "send"
+            ? "Transfer"
+            : props.type == "topup"
+            ? "Topup"
+            : ""}
+        </p>
 
         <div className={`${Styles.group}`}>
           <small className={`${Styles.transfer__transfer__name}`}>Amount</small>
@@ -55,29 +78,55 @@ export default function Confirm(props) {
             {props.date}
           </p>
         </div>
-        {/* <div className={`${Styles.group}`}>
-          <small className={`${Styles.transfer__transfer__name}`}>Notes</small>
-          <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            For buying some socks
-          </p>
-        </div> */}
-        <div className={`${Styles.group}`}>
-          <small className={`${Styles.transfer__transfer__name}`}>Status</small>
-          <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            Success
-          </p>
-        </div>
-        <p className={`${Styles.transfer__transfer__text}`}>Transfer From</p>
-        <ListUser name={props.name} />
+        {props.notes ? (
+          <div className={`${Styles.group}`}>
+            <small className={`${Styles.transfer__transfer__name}`}>
+              Notes
+            </small>
+            <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
+              {props.notes}
+            </p>
+          </div>
+        ) : (
+          <div className={`${Styles.group}`}>
+            <small className={`${Styles.transfer__transfer__name}`}>
+              Status
+            </small>
+            <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
+              {props.status == "pending" ? "Pending" : "Success"}
+            </p>
+          </div>
+        )}
 
+        {props.type === "topup" ? (
+          ""
+        ) : (
+          <>
+            {" "}
+            <p className={`${Styles.transfer__transfer__text}`}>
+              Transfer {props.type == "send" ? "To" : "By"}
+            </p>
+            <ListUser
+              name={props.name}
+              noTelp={props.noTelp}
+              image={props.image}
+            />
+          </>
+        )}
+        {console.log(props.type)}
         <div className="d-flex justify-content-end mt-4 mb-3">
-          <button
-            className={`btn btn-outline-primary  ${Styles.btn} mx-5`}
-            onClick={handleClick}
-          >
-            <img src="/icon/download.svg" alt="download" className="mx-2" />
-            Download PDF
-          </button>
+          {props.type !== "topup" ? (
+            <button
+              className={`btn btn-outline-primary  ${Styles.btn} mx-5`}
+              onClick={handleClick}
+            >
+              <img src="/icon/download.svg" alt="download" className="mx-2" />
+              Download PDF
+            </button>
+          ) : (
+            ""
+          )}
+
           <Link href="/dashboard" passHref>
             <button className={`btn btn-primary text-white ${Styles.btn}`}>
               Back To Home

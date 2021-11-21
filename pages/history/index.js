@@ -83,6 +83,7 @@ const History = (props) => {
                         key={i}
                         name={e.fullName}
                         type={e.type}
+                        id={e.id}
                         status={e.status}
                         image={e.image}
                         total={e.amount}

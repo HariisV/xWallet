@@ -1,6 +1,6 @@
 import React from "react";
 import Styles from "styles/Home.module.css";
-
+import Link from "next/link";
 export default function UserHistory(props) {
   return (
     <div className="d-flex mb-5 mt-4 justify-content-between">
@@ -17,12 +17,21 @@ export default function UserHistory(props) {
           height="50px"
         />
         <div className="d-block">
-          <p className={`p-0 m-0 ${Styles.name}`}>{props.name}</p>
+          <Link href={`/history/${props.id}`}>
+            <a
+              className={`p-0 m-0 ${Styles.name}`}
+              style={{ textDecoration: "none" }}
+            >
+              <p className="p-0 m-0">{props.name}</p>
+            </a>
+          </Link>
           <small className={`${Styles.type}`}>
             {props.type == "topup"
               ? "Topup"
               : props.type == "send"
               ? "Transfer"
+              : props.type == "accept"
+              ? "Accept"
               : ""}
           </small>
         </div>
@@ -36,6 +45,8 @@ export default function UserHistory(props) {
                 : Styles.pending
               : props.type == "send"
               ? Styles.transfer
+              : props.type == "accept"
+              ? Styles.topup
               : ""
           }`}
         >

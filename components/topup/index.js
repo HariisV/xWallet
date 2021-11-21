@@ -39,8 +39,9 @@ export default function Topup(props) {
   const submitTopup = () => {
     setIsLoading(true);
     const data = {
-      amount: props.balance.replace(/,(.*)/g, "").replace(/[^1-9]/g, ""),
+      amount: props.balance.replace(/,(.*)/g, "").replace(/[^0-9]/g, ""),
     };
+
     axios
       .post("/transaction/top-up", data)
       .then((res) => {

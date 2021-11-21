@@ -11,7 +11,20 @@ import CheckPin from "components/profile/check-pin";
 import ManagePhone from "components/profile/manage-phone";
 import { connect } from "react-redux";
 import { getUserLogin } from "stores/action/auth";
+import { getDataCookie } from "middleware/authorizationPage";
 
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+  if (!dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}
 const Profile = (props) => {
   const [isShow, setIsShow] = useState("Index");
   const onChangePage = (data) => {
