@@ -6,6 +6,19 @@ import { Notify, ContainerToast } from "components/layout/notify";
 import Link from "next/link";
 import Leftbar from "components/auth/sidebar";
 
+import { getDataCookie } from "middleware/authorizationPage";
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+  if (dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;

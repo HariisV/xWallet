@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import ListUser from "components/module/list-user/user-transfer";
+import React, { useState, useEffect } from "react";
+import ListUser from "components/layout/list-user/user-transfer";
 import Styles from "styles/Transfer.module.css";
 import Modal from "react-bootstrap/Modal";
-const inputStyle = {
-  width: "50px",
-  height: "65px",
-  background: "#FFFFFF",
-  border: "1px solid rgba(169, 169, 169, 0.6)",
-  boxSizing: "border-box",
-  boxShadow: "0px 10px 75px rgba(147, 147, 147, 0.1)",
-  borderRadius: "10px",
-};
+import axios from "utils/axios";
+import BtnLoading from "components/btn/loading";
+import { Notify } from "components/layout/notify";
+import { useRouter } from "next/router";
+// const inputStyle = {
+//   height: "65px",
+//   background: "#FFFFFF",
+//   border: "1px solid rgba(169, 169, 169, 0.6)",
+//   boxSizing: "border-box",
+//   boxShadow: "0px 10px 75px rgba(147, 147, 147, 0.1)",
+//   borderRadius: "10px",
+// };
 
 const inputContainer = {
   width: "100%",
@@ -19,9 +22,18 @@ const inputContainer = {
 export default function Confirm(props) {
   const [show, setShow] = useState(false);
   const [pin, setPin] = useState({});
+  const [isNull, setIsNull] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const router = useRouter();
+  useEffect(() => {
+    if (pin.pin1 && pin.pin2 && pin.pin3 && pin.pin4 && pin.pin5 && pin.pin6) {
+      setIsNull(false);
+    } else {
+      setIsNull(true);
+    }
+  }, [pin]);
   const addPin = (event) => {
     if (event.target.value) {
       const nextSibling = document.getElementById(
@@ -35,31 +47,70 @@ export default function Confirm(props) {
     setPin({ ...pin, [`pin${event.target.name}`]: event.target.value });
   };
   const handleSubmit = () => {
+    setIsLoading(true);
     const allPin =
       pin.pin1 + pin.pin2 + pin.pin3 + pin.pin4 + pin.pin5 + pin.pin6;
-    const setData = {
-      pin: allPin,
-    };
     axios
-      .patch(`/user/pin/${props.auth.idUser}`, setData)
+      .get(`/user/pin?pin=${allPin}`)
       .then((res) => {
-        Notify("Successfully Create Pin !", 200);
+        Notify("Transfer Di Proses !", 200);
         setTimeout(() => {
-          setIsSuccess(true);
-        }, 2000);
-        setTimeout(() => {
-          router.push("/");
+          const setData = {
+            receiverId: props.receiverId,
+            amount: props.balanceTransfer.replace(/[^0-9]/g, ""),
+            notes: props.Notes,
+          };
+          axios
+            .post("transaction/transfer", setData)
+            .then((res) => {
+              Notify("Transfer Berhasil !", 200);
+              setTimeout(() => {
+                router.push(`/history/${res.data.data.id}`);
+              }, 2000);
+            })
+            .catch((err) => {
+              Notify(err.response.data.msg, 400);
+            });
         }, 4000);
       })
       .catch((err) => {
-        console.log(err.response);
+        Notify(err.response.data.msg, 400);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+          setPin({
+            pin1: "",
+            pin2: "",
+            pin3: "",
+            pin4: "",
+            pin5: "",
+            pin6: "",
+          });
+        }, 3000);
       });
   };
+  const balanceLeft =
+    props.saldoUser - props.balanceTransfer.replace(/[^0-9]/g, "");
+  let d = new Date();
+  d = `${d.toLocaleDateString("id-ID", {
+    weekday: "long",
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  })}`;
   return (
     <div>
       <div className="card-body  mx-3">
         <p className="card__title">Transfer Money</p>
-        <ListUser />
+        <ListUser
+          name={props.data.firstName + " " + props.data.lastName}
+          noTelp={props.data.noTelp}
+          image={props.data.image}
+          id={props.data.id}
+        />
         <p className={`${Styles.transfer__transfer__title}`}>
           Details Transfer
         </p>
@@ -67,7 +118,7 @@ export default function Confirm(props) {
         <div className={`${Styles.group}`}>
           <small className={`${Styles.transfer__transfer__name}`}>Amount</small>
           <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            Rp100.000
+            {props.balanceTransfer}
           </p>
         </div>
         <div className={`${Styles.group}`}>
@@ -75,23 +126,27 @@ export default function Confirm(props) {
             Balance Left
           </small>
           <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            Rp20.000
+            Rp {balanceLeft.toLocaleString("id-ID")}
           </p>
         </div>
         <div className={`${Styles.group}`}>
           <small className={`${Styles.transfer__transfer__name}`}>
             Date & Time
           </small>
-          <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            May 11, 2020 - 12.20
-          </p>
+          <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>{d}</p>
         </div>
-        <div className={`${Styles.group}`}>
-          <small className={`${Styles.transfer__transfer__name}`}>Notes</small>
-          <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            For buying some socks
-          </p>
-        </div>
+        {props.Notes ? (
+          <div className={`${Styles.group}`}>
+            <small className={`${Styles.transfer__transfer__name}`}>
+              Notes
+            </small>
+            <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
+              {props.Notes}
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
 
         <div className="d-flex justify-content-end mt-4 mb-3">
           <button
@@ -130,74 +185,80 @@ export default function Confirm(props) {
               <div className="row">
                 <div className="col-2">
                   <input
-                    style={inputStyle}
-                    className={`${Styles.input__pin}`}
+                    className="input__pin style__pin"
                     maxLength="1"
                     onChange={(event) => addPin(event)}
                     name="1"
+                    value={pin.pin1}
                     id="pin-1"
                   />
                 </div>
                 <div className="col-2">
                   <input
-                    style={inputStyle}
-                    className={`${Styles.input__pin}`}
+                    className="input__pin style__pin"
                     maxLength="1"
                     onChange={(event) => addPin(event)}
                     name="2"
+                    value={pin.pin2}
                     id="pin-2"
                   />
                 </div>
                 <div className="col-2">
                   <input
-                    style={inputStyle}
-                    className={`${Styles.input__pin}`}
+                    className="input__pin style__pin"
                     maxLength="1"
                     required
                     onChange={(event) => addPin(event)}
                     name="3"
+                    value={pin.pin3}
                     id="pin-3"
                   />
                 </div>
                 <div className="col-2">
                   <input
-                    style={inputStyle}
-                    className={`${Styles.input__pin}`}
+                    className="input__pin style__pin"
                     maxLength="1"
                     onChange={(event) => addPin(event)}
                     name="4"
+                    value={pin.pin4}
                     id="pin-4"
                   />
                 </div>
                 <div className="col-2">
                   <input
-                    style={inputStyle}
-                    className={`${Styles.input__pin}`}
+                    className="input__pin style__pin"
                     maxLength="1"
                     onChange={(event) => addPin(event)}
                     name="5"
+                    value={pin.pin5}
                     id="pin-5"
                   />
                 </div>
                 <div className="col-2">
                   <input
-                    style={inputStyle}
-                    className={`${Styles.input__pin}`}
+                    className="input__pin style__pin"
                     maxLength="1"
                     onChange={(event) => addPin(event)}
                     name="6"
+                    value={pin.pin6}
                     id="pin-6"
                   />
                 </div>
               </div>
             </div>
             <div className="d-flex justify-content-end">
-              <button
-                className={`btn btn-primary text-white ${Styles.btn} mt-5 `}
-                onClick={handleShow}
-              >
-                Confirm
-              </button>
+              {isLoading ? (
+                <BtnLoading />
+              ) : (
+                <button
+                  className={`btn ${
+                    isNull ? "btn-secondary" : "btn-primary"
+                  } auth__btn p-2 font-light mt-5`}
+                  onClick={isNull ? null : handleSubmit}
+                >
+                  Continue
+                </button>
+              )}
             </div>
           </Modal.Body>
         </Modal>

@@ -1,41 +1,65 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Styles from "components/layout/sidebar/sidebar.module.css";
-import Modal from "react-bootstrap/Modal";
 import Dashboard from "components/Icon/dashboard";
 import Transfer from "components/Icon/transfer";
 import Topup from "components/Icon/topup";
 import Profile from "components/Icon/profile";
+import Link from "next/link";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import ModalTopup from "components/topup";
+import { ContainerToast } from "components/layout/notify";
 
 export default function Sidebar() {
   const [showModal, setShowModal] = useState(false);
   const handleCloseTopup = () => setShowModal(false);
   const handleShowTopup = () => setShowModal(true);
+  const [balance, setBalance] = useState("");
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    Cookies.remove("token", { path: "" });
+    router.push("/auth/login");
+  };
 
   return (
     <>
-      <div className="col-md-3">
+      <div className="col-md-3 col-sm-1  sembunyikan">
         <div className={`card card-body bg-white ${Styles.card__border}`}>
-          <ul className={`${Styles.sidebar__list} `}>
-            <li className="">
+          <ContainerToast />
+          <ul className={`${Styles.sidebar__list} m-4`}>
+            <li className="mt-4 ">
               <Dashboard stroke="#6379f4" />
-              <p>Dashboard</p>
+              <Link href="/dashboard" passHref>
+                <a>Dashboard</a>
+              </Link>
             </li>
-            <li className="">
+            <li className="mt-4">
               <Transfer stroke="#6379f4" />
-              <p>Transfer</p>
+              <Link href="/transfer" passHref>
+                <a>Transfer</a>
+              </Link>
             </li>
-            <li className="">
+            <li className="mt-4">
               <Topup stroke="#6379f4" />
-
-              <div className="">
-                <button onClick={handleShowTopup}>Topup</button>
-              </div>
+              <p className="pointer" onClick={handleShowTopup}>
+                Topup
+              </p>
+              <ModalTopup
+                showModal={showModal}
+                setShowModal={setShowModal}
+                balance={balance}
+                setBalance={setBalance}
+                handleCloseTopup={handleCloseTopup}
+              />
             </li>
-            <li className="">
+            <li className="mt-4">
               <Profile stroke="#6379f4" />
-
-              <p>Profile</p>
+              <Link href="/profile" passHref>
+                <a>Profile</a>
+              </Link>
             </li>
             <li className={`${Styles.logout}`}>
               <Image
@@ -45,52 +69,13 @@ export default function Sidebar() {
                 className="align-self-center"
                 alt=""
               />
-              <p>Logout</p>
+              <p className="pointer" onClick={handleLogout}>
+                Logout
+              </p>
             </li>
           </ul>
         </div>
       </div>
-      <Modal
-        show={showModal}
-        onHide={handleCloseTopup}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Body className={`${Styles.modal__border}`}>
-          <div
-            className="d-flex justify-content-between
-"
-          >
-            <p className={`${Styles.modal__title} p-0 m-0`}>Topup</p>
-            <button
-              className={`btn text-white ${Styles.btn_close} `}
-              onClick={handleCloseTopup}
-            >
-              X
-            </button>
-          </div>
-          <p className={`${Styles.transfer__transfer__name} mb-5`}>
-            Enter the amount of money, and <br />
-            click submit
-          </p>
-          <input
-            type="text"
-            className={`form-control p-3 w-100 ${Styles.input__nominal}`}
-            maxLength="9"
-            // value={props.nominal}
-            // onChange={(e) => props.onChange(e.target.value)}
-          />
-
-          <div className="d-flex justify-content-end">
-            <button
-              className={`btn btn-primary text-white ${Styles.btn} mt-5 `}
-              onClick={handleShowTopup}
-            >
-              Submit
-            </button>
-          </div>
-        </Modal.Body>
-      </Modal>
     </>
   );
 }

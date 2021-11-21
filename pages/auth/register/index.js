@@ -6,7 +6,19 @@ import axios from "utils/axios";
 import { useRouter } from "next/router";
 import { Notify, ContainerToast } from "components/layout/notify";
 import Link from "next/link";
-
+import { getDataCookie } from "middleware/authorizationPage";
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+  if (dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}
 export default function Registers() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);

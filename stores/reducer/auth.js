@@ -4,7 +4,7 @@ const initialState = {
   isLoading: false,
   msg: "",
   userLogin: {},
-  isPin: true,
+  isPin: "",
 };
 
 const login = (state = initialState, action) => {
@@ -21,6 +21,7 @@ const login = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
+        isPin: action.payload.data.data.pin,
         idUser: action.payload.data.data.id,
         msg: action.payload.data.msg,
       };

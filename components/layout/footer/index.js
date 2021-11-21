@@ -5,7 +5,7 @@ export default function index() {
     <>
       <div className={`${Style.footer}`}>
         <div className="container">
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between inMobil">
             <p>2021 Zwallet. All right reserved.</p>
             <p>contact@zwallet.com</p>
           </div>

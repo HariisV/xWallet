@@ -1,0 +1,109 @@
+.lp__image {
+  width: 300px;
+  /* height: 400px; */
+}
+.lp__title {
+  font-weight: 800;
+  word-spacing: 3px;
+  line-height: 60px;
+}
+.lp__color {
+  color: #6379f4;
+}
+.lp__desc {
+  font-size: 16px;
+  color: #3a3d42;
+}
+.lp__btn {
+  padding: 10px 30px;
+  border-radius: 13px !important;
+  color: white !important;
+}
+.lp__available {
+  width: 30px;
+  margin-right: 20px;
+}
+/* /* .lp__patner {
+  width: 100%;
+} */
+.lp__bgBiru {
+  background: rgba(71, 58, 209, 0.06);
+}
+.lp__card {
+  height: 244px;
+  width: 90%;
+  border: none;
+  border-radius: 15px;
+}
+.lp__card__icon {
+  width: 60px;
+}
+
+.lp__card__desc {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(58, 61, 66, 0.9);
+}
+
+.lp__card__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #3a3d42;
+}
+
+.lp__image__feature {
+  width: 100%;
+}
+
+.card__feature {
+  border: none !important;
+}
+
+.card__feature small {
+  /* color: #3a3d42e5; */
+}
+
+.lp__footer {
+  font-weight: 600;
+  color: #efefefe5;
+}
+
+.lp__limitText {
+  width: 300px;
+}
+
+.lp__footer__logo {
+  width: 120px;
+}
+.lp__btnn {
+  padding: 10px 30px;
+}
+@media (max-width: 575.98px) {
+  .lp__title {
+    line-height: 30px;
+  }
+  .lp__hero__center {
+    text-align: center;
+  }
+  .availabel {
+    display: flex !important;
+    justify-content: center;
+  }
+  .lp__available {
+    margin-right: 10px;
+  }
+  .lp__footer__mobile {
+    display: block !important;
+  }
+  .navbar {
+    margin: 20px 0 !important;
+  }
+  /* .d-flex {
+    display: block !important;
+  } */
+  .d-flex a {
+    margin: 10px 0px !important;
+    /* padding: 0 !important; */
+    width: 100%;
+  }
+}

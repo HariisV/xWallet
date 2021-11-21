@@ -6,6 +6,19 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Sidebar from "components/auth/sidebar";
 
+import { getDataCookie } from "middleware/authorizationPage";
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+  if (dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}
 export default function Forgot() {
   const router = useRouter();
   const [form, setForm] = useState({});

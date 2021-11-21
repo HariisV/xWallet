@@ -6,6 +6,19 @@ import { connect } from "react-redux";
 import { Notify, ContainerToast } from "components/layout/notify";
 import { useRouter } from "next/router";
 
+import { getDataCookie } from "middleware/authorizationPage";
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+  if (!dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}
 const inputStyle = {
   width: "50px",
   height: "65px",
@@ -58,6 +71,12 @@ const Pin = (props) => {
       });
   };
 
+  useEffect(() => {
+    if (props.auth.isPin) {
+      router.push("/dashboard");
+    }
+    // console.log(props.auth);
+  }, []);
   useEffect(() => {
     if (pin.pin1 && pin.pin2 && pin.pin3 && pin.pin4 && pin.pin5 && pin.pin6) {
       setIsNull(false);
@@ -149,7 +168,7 @@ const Pin = (props) => {
                     <div className="col-2">
                       <input
                         style={inputStyle}
-                        className={`${Styles.input__pin}`}
+                        className="input__pin"
                         maxLength="1"
                         onChange={(event) => addPin(event)}
                         name="1"
@@ -159,7 +178,7 @@ const Pin = (props) => {
                     <div className="col-2">
                       <input
                         style={inputStyle}
-                        className={`${Styles.input__pin}`}
+                        className="input__pin"
                         maxLength="1"
                         onChange={(event) => addPin(event)}
                         name="2"
@@ -169,7 +188,7 @@ const Pin = (props) => {
                     <div className="col-2">
                       <input
                         style={inputStyle}
-                        className={`${Styles.input__pin}`}
+                        className="input__pin"
                         maxLength="1"
                         required
                         onChange={(event) => addPin(event)}
@@ -180,7 +199,7 @@ const Pin = (props) => {
                     <div className="col-2">
                       <input
                         style={inputStyle}
-                        className={`${Styles.input__pin}`}
+                        className="input__pin"
                         maxLength="1"
                         onChange={(event) => addPin(event)}
                         name="4"
@@ -190,7 +209,7 @@ const Pin = (props) => {
                     <div className="col-2">
                       <input
                         style={inputStyle}
-                        className={`${Styles.input__pin}`}
+                        className="input__pin"
                         maxLength="1"
                         onChange={(event) => addPin(event)}
                         name="5"
@@ -200,7 +219,7 @@ const Pin = (props) => {
                     <div className="col-2">
                       <input
                         style={inputStyle}
-                        className={`${Styles.input__pin}`}
+                        className="input__pin"
                         maxLength="1"
                         onChange={(event) => addPin(event)}
                         name="6"

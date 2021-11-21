@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loginUser, getUserLogin } from "stores/action/auth";
-import { getDataCookie } from "middleware/authorizationPage";
 import Cookie from "js-cookie";
 import Leftbar from "components/auth/sidebar";
 import { useRouter } from "next/router";
 import { Notify, ContainerToast } from "components/layout/notify";
 import Link from "next/link";
 
-// export async function getServerSideProps(context) {
-//   const dataCookie = await getDataCookie(context);
-//   if (dataCookie.isLogin) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     };
-//   }
-//   return { props: {} };
-// }
+import { getDataCookie } from "middleware/authorizationPage";
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+  if (dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}
 const initialState = {
   email: "",
   password: "",
@@ -73,7 +73,6 @@ const Login = (props) => {
   };
   return (
     <div className="row p-0 m-0">
-      <ContainerToast />
       <Leftbar />
       <div className="col-md-4 bg__right__side">
         <h5 className="bg__form__title mb-3">
@@ -89,6 +88,8 @@ const Login = (props) => {
             <span className="input-group-text auth__input__span">
               <img src="/icon/mail.svg" alt="" />
             </span>
+            <ContainerToast />
+
             <input
               type="text"
               className={`form-control ${isError ? "is-invalid" : ""}`}

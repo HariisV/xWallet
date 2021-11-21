@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import ListUser from "components/module/list-user/user-transfer";
+import React from "react";
+import ListUser from "components/layout/list-user/user-transfer";
 import Styles from "styles/Transfer.module.css";
 import Modal from "react-bootstrap/Modal";
+import Link from "next/link";
+import axios from "utils/axios";
+
 const inputStyle = {
   width: "50px",
   height: "65px",
@@ -17,6 +20,17 @@ const inputContainer = {
 };
 
 export default function Confirm(props) {
+  const handleClick = () => {
+    console.log("KLIK");
+    axios
+      .get(`export/transaction/${props.id}`)
+      .then((res) => {
+        window.open(res.data.data.url, "_blank");
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
   return (
     <div>
       <div className="card-body  mx-3">
@@ -29,38 +43,46 @@ export default function Confirm(props) {
         <div className={`${Styles.group}`}>
           <small className={`${Styles.transfer__transfer__name}`}>Amount</small>
           <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            Rp100.000
+            Rp {props.amount ? props.amount.toLocaleString("id-ID") : ""}
           </p>
         </div>
-        <div className={`${Styles.group}`}>
-          <small className={`${Styles.transfer__transfer__name}`}>
-            Balance Left
-          </small>
-          <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            Rp20.000
-          </p>
-        </div>
+
         <div className={`${Styles.group}`}>
           <small className={`${Styles.transfer__transfer__name}`}>
             Date & Time
           </small>
           <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
-            May 11, 2020 - 12.20
+            {props.date}
           </p>
         </div>
-        <div className={`${Styles.group}`}>
+        {/* <div className={`${Styles.group}`}>
           <small className={`${Styles.transfer__transfer__name}`}>Notes</small>
           <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
             For buying some socks
           </p>
+        </div> */}
+        <div className={`${Styles.group}`}>
+          <small className={`${Styles.transfer__transfer__name}`}>Status</small>
+          <p className={`${Styles.transfer__transfer__value} p-0 m-0`}>
+            Success
+          </p>
         </div>
-        <p className={`${Styles.transfer__transfer__text}`}>Transfer Money</p>
-        <ListUser />
+        <p className={`${Styles.transfer__transfer__text}`}>Transfer From</p>
+        <ListUser name={props.name} />
 
         <div className="d-flex justify-content-end mt-4 mb-3">
-          <button className={`btn btn-primary text-white ${Styles.btn}`}>
-            Confirm
+          <button
+            className={`btn btn-outline-primary  ${Styles.btn} mx-5`}
+            onClick={handleClick}
+          >
+            <img src="/icon/download.svg" alt="download" className="mx-2" />
+            Download PDF
           </button>
+          <Link href="/dashboard" passHref>
+            <button className={`btn btn-primary text-white ${Styles.btn}`}>
+              Back To Home
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -15,7 +15,8 @@
   color: white;
 }
 
-.transaction__desc {
+.transaction__desc a {
+  text-decoration: none;
 }
 
 .name {
@@ -43,4 +44,16 @@
   font-size: 16px;
   color: #1ec15f;
   font-weight: 800;
+}
+
+.pending {
+  font-size: 16px;
+  color: #ffc107;
+  font-weight: 800;
+}
+@media (max-width: 575.98px) {
+  .balance {
+    margin: 0;
+    padding: 0;
+  }
 }

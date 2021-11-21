@@ -58,3 +58,36 @@
   color: #7a7886;
   font-weight: 400;
 }
+
+.input {
+  border: none !important;
+  border-bottom: 1px solid #a9a9a999 !important;
+}
+
+.input_span {
+  background-color: white !important;
+  border: none !important;
+  border-bottom: 1px solid #a9a9a999 !important;
+  border-radius: 1px !important;
+}
+.input::-webkit-input-placeholder {
+  color: #a9a9a9cc;
+  font-size: 15px;
+}
+
+.primary {
+  color: white;
+  padding: 10px 30px;
+  border-radius: 13px;
+}
+
+.containerr {
+  width: 45%;
+}
+.btn_close {
+  padding: 10px 10px;
+  /* border-radius: 100px; */
+  font-weight: 600;
+  margin-right: 10px;
+  color: black !important;
+}
