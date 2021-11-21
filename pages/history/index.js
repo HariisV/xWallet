@@ -40,7 +40,7 @@ const History = (props) => {
         router.push(`?page=${page}&filter=${filter}`);
       }
     });
-  }, [page, filter]);
+  }, [page, filter, props, router]);
   const handlePagination = (event) => {
     setPage(Number(event.selected) + 1);
     router.push(`?page=${Number(event.selected) + 1}&filter=${filter}`);

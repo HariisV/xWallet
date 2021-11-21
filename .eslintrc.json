@@ -2,6 +2,8 @@
   "extends": "next/core-web-vitals",
   "rules": {
     // Other rules
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn" // <--- THIS IS THE NEW RULE
   }
 }

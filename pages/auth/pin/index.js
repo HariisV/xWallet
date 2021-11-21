@@ -76,7 +76,7 @@ const Pin = (props) => {
       router.push("/dashboard");
     }
     // console.log(props.auth);
-  }, []);
+  });
   useEffect(() => {
     if (pin.pin1 && pin.pin2 && pin.pin3 && pin.pin4 && pin.pin5 && pin.pin6) {
       setIsNull(false);
