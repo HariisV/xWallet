@@ -1,8 +1,8 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    URL_BACKEND: "http://localhost:3001",
-    URL_FRONTEND: "http://localhost:3000",
+    URL_BACKEND: "https://zwalet.herokuapp.com",
+    URL_FRONTEND: "https://x-wallet.vercel.app",
   },
   async rewrites() {
     return [
