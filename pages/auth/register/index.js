@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import Leftbar from "components/auth/sidebar";
-import Input from "components/auth/input";
-import axios from "utils/axios";
-import { useRouter } from "next/router";
-import { Notify, ContainerToast } from "components/layout/notify";
-import Link from "next/link";
-import { getDataCookie } from "middleware/authorizationPage";
-import Layout from "components/layout";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Leftbar from 'components/auth/sidebar';
+import Input from 'components/auth/input';
+import axios from 'utils/axios';
+import { useRouter } from 'next/router';
+import { Notify, ContainerToast } from 'components/layout/notify';
+import Link from 'next/link';
+import { getDataCookie } from 'middleware/authorizationPage';
+import Layout from 'components/layout';
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
   if (dataCookie.isLogin) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: '/dashboard',
         permanent: false,
       },
     };
@@ -31,19 +31,17 @@ export default function Registers() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log("JALAN");
     setIsLoading(true);
     axios
-      .post("/auth/register", data)
+      .post('/auth/register', data)
       .then((res) => {
-        Notify("Berhasil Register, Verifikasi Email Sekarang !", 200);
+        Notify('Berhasil Register, Verifikasi Email Sekarang !', 200);
         setTimeout(() => {
-          router.push("/auth/login");
+          router.push('/auth/login');
         }, 4000);
       })
       .catch((err) => {
         Notify(err.response.data.msg, 400);
-        console.log(err.response.data.msg);
       })
       .finally(() => {
         setTimeout(() => {
@@ -76,7 +74,7 @@ export default function Registers() {
               icon="/icon/person.svg"
               type="text"
               isInvalid={errors.firstName ? true : false}
-              reactForm={register("firstName", { required: true })}
+              reactForm={register('firstName', { required: true })}
             />
             {errors.firstName && (
               <small className="isInvalid">First Name is required</small>
@@ -87,7 +85,7 @@ export default function Registers() {
               icon="/icon/person.svg"
               type="text"
               isInvalid={errors.lastName ? true : false}
-              reactForm={register("lastName", { required: true })}
+              reactForm={register('lastName', { required: true })}
             />
             {errors.lastName && (
               <small className="isInvalid">Input your last name</small>
@@ -97,7 +95,7 @@ export default function Registers() {
               icon="/icon/mail.svg"
               type="text"
               isInvalid={errors.email ? true : false}
-              reactForm={register("email", {
+              reactForm={register('email', {
                 required: true,
                 pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
               })}
@@ -110,7 +108,7 @@ export default function Registers() {
               icon="/icon/lock.svg"
               type="password"
               isInvalid={errors.password ? true : false}
-              reactForm={register("password", { required: true, min: 6 })}
+              reactForm={register('password', { required: true, min: 6 })}
             />
             {errors.password && (
               <small className="isInvalid">Min Password 6 Character</small>
@@ -123,12 +121,12 @@ export default function Registers() {
                   </div>
                 </>
               ) : (
-                "Login"
+                'Register'
               )}
             </button>
             <p className="text-center mt-3 auth__text">
-              Already have an account? Let’s{" "}
-              <Link href="/auth/login" style={{ color: "#3A3D42CC" }}>
+              Already have an account? Let’s{' '}
+              <Link href="/auth/login" style={{ color: '#3A3D42CC' }}>
                 Login
               </Link>
             </p>

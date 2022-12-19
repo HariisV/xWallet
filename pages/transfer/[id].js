@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Layout from "components/layout";
-import Navbar from "components/layout/navbar";
-import Footer from "components/layout/footer";
-import Sidebar from "components/layout/sidebar";
-import Transfer from "components/transfer/index";
-import Confirm from "components/transfer/confirm";
-import axios from "utils/axios";
-import { useRouter } from "next/router";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import Layout from 'components/layout';
+import Navbar from 'components/layout/navbar';
+import Footer from 'components/layout/footer';
+import Sidebar from 'components/layout/sidebar';
+import Transfer from 'components/transfer/index';
+import Confirm from 'components/transfer/confirm';
+import axios from 'utils/axios';
+import { useRouter } from 'next/router';
+import { connect } from 'react-redux';
 
 const History = (props) => {
   const dataLogin = props.auth.userLogin;
   const router = useRouter();
   const { id } = router.query;
   const [balance, setBalance] = useState(0);
-  const [isShow, setIsShow] = useState("transfer");
+  const [isShow, setIsShow] = useState('transfer');
   const [DataUser, setDataUser] = useState({});
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
 
   useEffect(() => {
     getDetailUser();
@@ -30,17 +30,14 @@ const History = (props) => {
       .then((res) => {
         setDataUser(res.data.data);
       })
-      .catch((err) => {
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
   const handleNext = (data) => {
-    // console.log(data);
     setIsShow(data);
   };
   return (
     <Layout title="Transfer Money | xWallet - Send your money without fee">
-      <div className="" style={{ background: "rgb(99 121 244 / 4%)" }}>
+      <div className="" style={{ background: 'rgb(99 121 244 / 4%)' }}>
         <Navbar />
         <section className="sidebar mt-5">
           <div className="container">
@@ -49,7 +46,7 @@ const History = (props) => {
 
               <div className={`col-md-9`}>
                 <div className="card card__shadow ">
-                  {isShow == "transfer" ? (
+                  {isShow == 'transfer' ? (
                     <Transfer
                       setBalance={setBalance}
                       data={DataUser}
@@ -58,7 +55,7 @@ const History = (props) => {
                       setNotes={setNotes}
                       handleNext={handleNext}
                     />
-                  ) : isShow == "confirm" ? (
+                  ) : isShow == 'confirm' ? (
                     <Confirm
                       setBalance={setBalance}
                       data={DataUser}
@@ -69,7 +66,7 @@ const History = (props) => {
                       handleNext={handleNext}
                     />
                   ) : (
-                    isShow == "transfer"
+                    isShow == 'transfer'
                   )}
                 </div>
               </div>

@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Styles from "./pin.module.css";
-import axios from "utils/axios";
-import { connect } from "react-redux";
-import { Notify, ContainerToast } from "components/layout/notify";
-import { useRouter } from "next/router";
-import Layout from "components/layout";
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Styles from './pin.module.css';
+import axios from 'utils/axios';
+import { connect } from 'react-redux';
+import { Notify, ContainerToast } from 'components/layout/notify';
+import { useRouter } from 'next/router';
+import Layout from 'components/layout';
 
-import { getDataCookie } from "middleware/authorizationPage";
+import { getDataCookie } from 'middleware/authorizationPage';
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
   if (!dataCookie.isLogin) {
     return {
       redirect: {
-        destination: "/auth/login",
+        destination: '/auth/login',
         permanent: false,
       },
     };
@@ -21,17 +21,17 @@ export async function getServerSideProps(context) {
   return { props: {} };
 }
 const inputStyle = {
-  width: "50px",
-  height: "65px",
-  background: "#FFFFFF",
-  border: "1px solid rgba(169, 169, 169, 0.6)",
-  boxSizing: "border-box",
-  boxShadow: "0px 10px 75px rgba(147, 147, 147, 0.1)",
-  borderRadius: "10px",
+  width: '50px',
+  height: '65px',
+  background: '#FFFFFF',
+  border: '1px solid rgba(169, 169, 169, 0.6)',
+  boxSizing: 'border-box',
+  boxShadow: '0px 10px 75px rgba(147, 147, 147, 0.1)',
+  borderRadius: '10px',
 };
 
 const inputContainer = {
-  width: "100%",
+  width: '100%',
 };
 const Pin = (props) => {
   const router = useRouter();
@@ -59,24 +59,22 @@ const Pin = (props) => {
     axios
       .patch(`/user/pin/${props.auth.idUser}`, setData)
       .then((res) => {
-        Notify("Successfully Create Pin !", 200);
+        Notify('Successfully Create Pin !', 200);
         setTimeout(() => {
           setIsSuccess(true);
         }, 2000);
         setTimeout(() => {
-          router.push("/");
+          router.push('/');
         }, 4000);
       })
-      .catch((err) => {
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
     if (props.auth.isPin) {
-      router.push("/dashboard");
+      router.push('/dashboard');
     }
-    // console.log(props.auth);
+    //
   });
   useEffect(() => {
     if (pin.pin1 && pin.pin2 && pin.pin3 && pin.pin4 && pin.pin5 && pin.pin6) {
@@ -234,7 +232,7 @@ const Pin = (props) => {
 
                 <button
                   className={`btn ${
-                    isNull ? "btn-secondary" : "btn-primary"
+                    isNull ? 'btn-secondary' : 'btn-primary'
                   } auth__btn p-2 font-light mt-5`}
                   onClick={isNull ? null : handleSubmit}
                 >

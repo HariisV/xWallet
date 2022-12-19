@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import Layout from "components/layout";
-import Navbar from "components/layout/navbar";
-import Footer from "components/layout/footer";
-import Sidebar from "components/layout/sidebar";
-import Styles from "styles/Transfer.module.css";
-import ListUser from "components/layout/list-user/user-transfer";
-import axios from "utils/axios";
-import Pagination from "react-paginate";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from 'react';
+import Layout from 'components/layout';
+import Navbar from 'components/layout/navbar';
+import Footer from 'components/layout/footer';
+import Sidebar from 'components/layout/sidebar';
+import Styles from 'styles/Transfer.module.css';
+import ListUser from 'components/layout/list-user/user-transfer';
+import axios from 'utils/axios';
+import Pagination from 'react-paginate';
+import { useRouter } from 'next/router';
 
 export default function History() {
   const router = useRouter();
   const { page: pageQ, search: searchQ } = router.query;
-  console.log(pageQ, searchQ);
   const [dataUser, setDataUser] = useState([]);
   const [page, setPage] = useState(pageQ ? pageQ : 1);
-  const [search, setSearch] = useState(searchQ ? searchQ : "");
-  const [tidakDitemukan, setTidakDitemukan] = useState("");
+  const [search, setSearch] = useState(searchQ ? searchQ : '');
+  const [tidakDitemukan, setTidakDitemukan] = useState('');
   const [pageInfo, setPageInfo] = useState([]);
   const getAllUser = () => {
     axios
@@ -29,9 +28,7 @@ export default function History() {
           setPage(1);
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   useEffect(() => {
     getAllUser();
@@ -39,7 +36,7 @@ export default function History() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageQ, search, searchQ]);
   const handleEnter = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       getAllUser();
       router.push(`?page=${page}&search=${e.target.value}`);
     }
@@ -55,7 +52,7 @@ export default function History() {
   };
   return (
     <Layout title="History Transfer | xWallet - Send your money without fee">
-      <div className="" style={{ background: "rgb(99 121 244 / 4%)" }}>
+      <div className="" style={{ background: 'rgb(99 121 244 / 4%)' }}>
         <Navbar />
         <section className="sidebar mt-5">
           <div className="container">
@@ -85,7 +82,7 @@ export default function History() {
                     {dataUser.length < 1 ? (
                       <div>
                         <h5 className="text-center">
-                          <span className=" fw-bold">{tidakDitemukan}</span>{" "}
+                          <span className=" fw-bold">{tidakDitemukan}</span>{' '}
                           Tidak Ditemukan !
                         </h5>
                       </div>
@@ -103,19 +100,19 @@ export default function History() {
                   </div>
                   <div className="showtimes__paginate d-flex justify-content-center mb-3">
                     <Pagination
-                      previousLabel={"Sebelumnya"}
-                      nextLabel={"Selanjutnya"}
-                      previousClassName={"nonaktif_previous"}
-                      nextClassName={"nonaktif_previous"}
-                      breakLabel={" "}
+                      previousLabel={'Sebelumnya'}
+                      nextLabel={'Selanjutnya'}
+                      previousClassName={'nonaktif_previous'}
+                      nextClassName={'nonaktif_previous'}
+                      breakLabel={' '}
                       // breakClassName={"btn btn-outline-primary btnPagination"}
                       pageCount={pageInfo.totalPage}
                       onPageChange={handlePagination}
                       initialPage={page - 1}
-                      containerClassName={"pagination mr-5"}
-                      disabledClassName={"pagination__link--disabled"}
-                      activeClassName={"pagination__link--active btn-primary "}
-                      pageClassName={" btn btn-outline-primary btnPagination"}
+                      containerClassName={'pagination mr-5'}
+                      disabledClassName={'pagination__link--disabled'}
+                      activeClassName={'pagination__link--active btn-primary '}
+                      pageClassName={' btn btn-outline-primary btnPagination'}
                     />
                   </div>
                 </div>

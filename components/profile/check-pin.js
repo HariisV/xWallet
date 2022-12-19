@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import Styles from "styles/Profile.module.css";
-import axios from "utils/axios";
-import { Notify } from "components/layout/notify";
+import React, { useState } from 'react';
+import Styles from 'styles/Profile.module.css';
+import axios from 'utils/axios';
+import { Notify } from 'components/layout/notify';
 const inputStyle = {
-  width: "50px",
-  height: "65px",
-  background: "#FFFFFF",
-  border: "1px solid rgba(169, 169, 169, 0.6)",
-  boxSizing: "border-box",
-  boxShadow: "0px 10px 75px rgba(147, 147, 147, 0.1)",
-  borderRadius: "10px",
+  width: '50px',
+  height: '65px',
+  background: '#FFFFFF',
+  border: '1px solid rgba(169, 169, 169, 0.6)',
+  boxSizing: 'border-box',
+  boxShadow: '0px 10px 75px rgba(147, 147, 147, 0.1)',
+  borderRadius: '10px',
 };
 
 const inputContainer = {
-  width: "100%",
+  width: '100%',
 };
 
 export default function Personalinfo(props) {
@@ -39,14 +39,12 @@ export default function Personalinfo(props) {
     axios
       .get(`/user/pin?pin=${allPin}`)
       .then((res) => {
-        Notify("Pin Benar !", 200);
-        props.changePage("ManagePin");
+        Notify('Pin Benar !', 200);
+        props.changePage('ManagePin');
       })
       .catch((err) => {
         Notify(err.response.data.msg, 400);
       });
-
-    // console.log(setData);
   };
   return (
     <div className="card card__shadow ">
@@ -55,18 +53,18 @@ export default function Personalinfo(props) {
           <p className={`${Styles.title}`}>Check Pin</p>
           <button
             className={`btn text-white  ${Styles.btn_close} `}
-            onClick={() => props.changePage("Index")}
+            onClick={() => props.changePage('Index')}
           >
             X
-          </button>{" "}
+          </button>{' '}
         </div>
         <small className={`${Styles.desc}`}>
           Enter your current 6 digits Zwallet PIN below to <br /> continue to
-          the next steps.{" "}
+          the next steps.{' '}
         </small>
         <div className="d-flex justify-content-center mt-5">
           <div className={`${Styles.containerr}`}>
-            {" "}
+            {' '}
             <div style={inputContainer}>
               <div className="row">
                 <div className="col-2">

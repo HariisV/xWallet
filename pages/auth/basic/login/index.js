@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
-import Layout from "components/layout";
-import axios from "utils/axios";
-import { useRouter } from "next/router";
-import Cookie from "js-cookie";
-import { getDataCookie } from "middleware/authorizationPage";
+import React, { useState } from 'react';
+import Layout from 'components/layout';
+import axios from 'utils/axios';
+import { useRouter } from 'next/router';
+import Cookie from 'js-cookie';
+import { getDataCookie } from 'middleware/authorizationPage';
 
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
   if (dataCookie.isLogin) {
     return {
       redirect: {
-        destination: "/main/home",
+        destination: '/main/home',
         permanent: false,
       },
     };
@@ -21,20 +21,18 @@ export async function getServerSideProps(context) {
 
 export default function login() {
   const routes = useRouter();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: '', password: '' });
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/auth/login", form)
+      .post('/auth/login', form)
       .then((res) => {
-        Cookie.set("token", res.data.data.token);
-        Cookie.set("id", res.data.data.id);
-        routes.push("/main/home");
-        // console.log(res);
+        Cookie.set('token', res.data.data.token);
+        Cookie.set('id', res.data.data.id);
+        routes.push('/main/home');
+        //
       })
-      .catch((err) => {
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
   const handleChangeText = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

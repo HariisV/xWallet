@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { loginUser, getUserLogin } from "stores/action/auth";
-import Cookie from "js-cookie";
-import Leftbar from "components/auth/sidebar";
-import { useRouter } from "next/router";
-import { Notify, ContainerToast } from "components/layout/notify";
-import Link from "next/link";
-import Layout from "components/layout";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { loginUser, getUserLogin } from 'stores/action/auth';
+import Cookie from 'js-cookie';
+import Leftbar from 'components/auth/sidebar';
+import { useRouter } from 'next/router';
+import { Notify, ContainerToast } from 'components/layout/notify';
+import Link from 'next/link';
+import Layout from 'components/layout';
 
-import { getDataCookie } from "middleware/authorizationPage";
+import { getDataCookie } from 'middleware/authorizationPage';
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
   if (dataCookie.isLogin) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: '/dashboard',
         permanent: false,
       },
     };
@@ -22,8 +22,8 @@ export async function getServerSideProps(context) {
   return { props: {} };
 }
 const initialState = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 const Login = (props) => {
   const [isLoading, setIsloading] = useState(false);
@@ -44,26 +44,26 @@ const Login = (props) => {
     props
       .loginUser(form)
       .then((res) => {
-        localStorage.setItem("token", res.value.data.data.token);
-        Cookie.set("token", res.value.data.data.token);
+        localStorage.setItem('token', res.value.data.data.token);
+        Cookie.set('token', res.value.data.data.token);
         props.getUserLogin(res.value.data.data.id);
-        Notify("Login Berhasil !", 200);
+        Notify('Login Berhasil !', 200);
 
         if (res.value.data.data.pin === null) {
-          Notify("Please Set Your Pin !", 400);
+          Notify('Please Set Your Pin !', 400);
           setTimeout(() => {
-            router.push("/auth/pin");
+            router.push('/auth/pin');
           }, 2000);
         } else {
           setTimeout(() => {
-            router.push("/");
+            router.push('/');
           }, 1000);
         }
       })
       .catch((err) => {
         Notify(err.response.data.msg, 400);
         setIsError(true);
-        // console.log(err.response);
+        //
       })
       .finally(() => {
         setTimeout(() => {
@@ -94,7 +94,7 @@ const Login = (props) => {
 
               <input
                 type="text"
-                className={`form-control ${isError ? "is-invalid" : ""}`}
+                className={`form-control ${isError ? 'is-invalid' : ''}`}
                 name="email"
                 value={form.email}
                 onChange={handleChange}
@@ -107,7 +107,7 @@ const Login = (props) => {
               </span>
               <input
                 type="password"
-                className={`form-control  ${isError ? "is-invalid" : ""}`}
+                className={`form-control  ${isError ? 'is-invalid' : ''}`}
                 placeholder="Enter Your Password"
                 name="password"
                 value={form.password}
@@ -130,14 +130,14 @@ const Login = (props) => {
                     </div>
                   </>
                 ) : (
-                  "Login"
+                  'Login'
                 )}
               </button>
             )}
 
             <p className="text-center mt-3 auth__text">
-              Don’t have an account? Let’s{" "}
-              <Link href="/auth/register" style={{ color: "#3A3D42CC" }}>
+              Don’t have an account? Let’s{' '}
+              <Link href="/auth/register" style={{ color: '#3A3D42CC' }}>
                 Sign Up
               </Link>
             </p>

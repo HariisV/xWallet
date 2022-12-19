@@ -1,10 +1,10 @@
-import React from "react";
-import Link from "next/link";
-import { getDataCookie } from "middleware/authorizationPage";
-import Layout from "components/layout";
-import axios from "utils/axios";
-import Cookie from "js-cookie";
-import { useRouter } from "next/router";
+import React from 'react';
+import Link from 'next/link';
+import { getDataCookie } from 'middleware/authorizationPage';
+import Layout from 'components/layout';
+import axios from 'utils/axios';
+import Cookie from 'js-cookie';
+import { useRouter } from 'next/router';
 
 // export async function getServerSideProps(context) {
 //   const dataCookie = await getDataCookie(context);
@@ -19,18 +19,12 @@ import { useRouter } from "next/router";
 //   return { props: {} };
 // }
 export async function getStaticProps(context) {
-  console.log("PROSES GET STATIC");
-  console.log("PROSES GET STATIC");
-  console.log("PROSES GET STATIC");
-  console.log("PROSES GET STATIC");
   const response = await await axios
     .get(`user?page=1&limit=5&search=&sort=firstName ASC`)
     .then((res) => {
-      console.log(res.data.data);
       return res.data.data;
     })
     .catch((err) => {
-      console.log("EROR DIA BROOOOOOOOOOOOOOOOOOOOOOOOOO", err.response);
       return [];
     });
   return {
@@ -42,7 +36,7 @@ export default function SSG(props) {
   const handleDetailProfile = (id) => {
     router.push(`/landing-page/${id}`);
   };
-  console.log(props);
+
   return (
     <>
       {props.data.map((item, index) => (

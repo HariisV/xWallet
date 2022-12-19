@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import Styles from "styles/Profile.module.css";
-import Input from "components/profile/input";
-import axios from "utils/axios";
-import { Notify } from "components/layout/notify";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Styles from 'styles/Profile.module.css';
+import Input from 'components/profile/input';
+import axios from 'utils/axios';
+import { Notify } from 'components/layout/notify';
 export default function Personalinfo(props) {
   const [form, setForm] = useState({});
   const handleSubmit = (e) => {
@@ -12,11 +12,10 @@ export default function Personalinfo(props) {
       newPassword: form.newPassword,
       confirmPassword: form.confirmPassword,
     };
-    console.log(setData);
     axios
       .patch(`/user/password/${props.data.id}`, setData)
       .then((res) => {
-        Notify("Berhasil Mengubah Password !", 200);
+        Notify('Berhasil Mengubah Password !', 200);
         props.dispatch(props.data.id);
       })
       .catch((err) => {
@@ -34,7 +33,7 @@ export default function Personalinfo(props) {
           <p className={`${Styles.title}`}>Change Password</p>
           <button
             className={`btn text-white  ${Styles.btn_close} `}
-            onClick={() => props.changePage("Index")}
+            onClick={() => props.changePage('Index')}
           >
             X
           </button>

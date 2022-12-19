@@ -1,29 +1,25 @@
-import React from "react";
-import Link from "next/link";
-import { getDataCookie } from "middleware/authorizationPage";
-import Layout from "components/layout";
-import axios from "utils/axios";
-import Cookie from "js-cookie";
-import { useRouter } from "next/router";
+import React from 'react';
+import Link from 'next/link';
+import { getDataCookie } from 'middleware/authorizationPage';
+import Layout from 'components/layout';
+import axios from 'utils/axios';
+import Cookie from 'js-cookie';
+import { useRouter } from 'next/router';
 
 export async function getStaticPaths() {
   const listUser = await axios
     .get(`user?page=1&limit=5&search=&sort=firstName ASC`)
     .then((res) => {
-      console.log(res.data.data);
       return res.data.data;
     })
     .catch((err) => {
-      console.log(err.response);
       return [];
     });
-  console.log(listUser);
   const listPath = listUser.map((item) => ({
     params: {
       id: `${item.id}`,
     },
   }));
-  console.log(listPath);
   return {
     paths: listPath,
     fallback: false,
@@ -33,7 +29,6 @@ export async function getStaticProps(context) {
   const response = await axios
     .get(`/user/profile/${context.params.id}`)
     .then((res) => {
-      console.log(res.data.data);
       return res.data.data;
     })
     .catch((err) => {
@@ -44,10 +39,9 @@ export async function getStaticProps(context) {
   };
 }
 export default function SSG(props) {
-  console.log(props);
   return (
     <Layout title="xWallet - Send your money without fee">
-      <div style={{ background: "#FAFCFF" }}>
+      <div style={{ background: '#FAFCFF' }}>
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light m-5">
             <div className="container-fluid">
@@ -90,7 +84,7 @@ export default function SSG(props) {
               </div>
               <div className="col-md-4 align-self-center lp__hero__center">
                 <h1 className="lp__title">
-                  Awesome App For Saving{" "}
+                  Awesome App For Saving{' '}
                   <span className="lp__color">Time.</span>
                 </h1>
                 <p className="lp__desc mt-4 mb-4">
@@ -167,7 +161,7 @@ export default function SSG(props) {
                   <h5 className="lp__card__title">Data Privacy</h5>
                   <p className="lp__card__desc">
                     We make sure your data is safe in our database and we will
-                    encrypt any data you submitted to us.{" "}
+                    encrypt any data you submitted to us.{' '}
                   </p>
                 </div>
               </div>
@@ -183,7 +177,7 @@ export default function SSG(props) {
                   <h5 className="lp__card__title">Easy Download</h5>
                   <p className="lp__card__desc">
                     Zwallet is 100% totally free to use it’s now available on
-                    Google Play Store and App Store.{" "}
+                    Google Play Store and App Store.{' '}
                   </p>
                 </div>
               </div>
@@ -253,15 +247,15 @@ export default function SSG(props) {
                       src={
                         props.data.image
                           ? `${process.env.URL_BACKEND}/uploads/${props.data.image}`
-                          : "/image/avatard.png"
+                          : '/image/avatard.png'
                       }
                       alt=""
                       className="lp__card__icon text-center"
                     />
                   </div>
                   <h5 className="mb-3 fw-bold">
-                    {" "}
-                    {props.data.firstName + " " + props.data.lastName}
+                    {' '}
+                    {props.data.firstName + ' ' + props.data.lastName}
                   </h5>
                   <p>
                     “I use this app since 2 years ago and this is the best app
@@ -323,7 +317,7 @@ export default function SSG(props) {
               <div className="">
                 <div className="d-flex">
                   <p className="mx-3">
-                    {props.data.firstName + " " + props.data.lastName}
+                    {props.data.firstName + ' ' + props.data.lastName}
                   </p>
                   <p className="mx-3">{props.data.noTelp}</p>
                   <p>{props.data.email}</p>

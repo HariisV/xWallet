@@ -1,9 +1,8 @@
-import React from "react";
-import Image from "next/image";
-import Styles from "styles/Profile.module.css";
+import React from 'react';
+import Image from 'next/image';
+import Styles from 'styles/Profile.module.css';
 
 export default function Personalinfo(props) {
-  console.log(props);
   return (
     <div className="card card__shadow ">
       <div className="card-body mx-3">
@@ -11,10 +10,10 @@ export default function Personalinfo(props) {
           <p className={`${Styles.title}`}>Personal Information</p>
           <button
             className={`btn text-white  ${Styles.btn_close} `}
-            onClick={() => props.changePage("Index")}
+            onClick={() => props.changePage('Index')}
           >
             X
-          </button>{" "}
+          </button>{' '}
         </div>
         <small className={`${Styles.desc}`}>
           We got your personal information from the sign <br /> up proccess. If
@@ -43,11 +42,11 @@ export default function Personalinfo(props) {
           <small className={`${Styles.detail__name}`}>Phone Number</small>
           <div className="d-flex justify-content-between">
             <p className={`${Styles.detail__value} p-0 m-0`}>
-              {props.data.noTelp ? props.data.noTelp : "Belum Ditambahkan"}
+              {props.data.noTelp ? props.data.noTelp : 'Belum Ditambahkan'}
             </p>
             <button
               className="btn"
-              onClick={() => props.changePage("ManagePhone")}
+              onClick={() => props.changePage('ManagePhone')}
             >
               Manage
             </button>

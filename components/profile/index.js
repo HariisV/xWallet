@@ -1,23 +1,22 @@
-import React, { useRef, useState } from "react";
-import Image from "next/image";
-import Styles from "styles/Profile.module.css";
-import axios from "utils/axios";
-import { Notify } from "components/layout/notify";
-import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import React, { useRef, useState } from 'react';
+import Image from 'next/image';
+import Styles from 'styles/Profile.module.css';
+import axios from 'utils/axios';
+import { Notify } from 'components/layout/notify';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 export default function Personalinfo(props) {
   const router = useRouter();
   const inputFile = useRef(null);
   const [formImage, setFormImage] = useState({
-    image: "",
+    image: '',
   });
   const handleLogout = () => {
     localStorage.clear();
-    Cookies.remove("token", { path: "" });
-    router.push("/auth/login");
+    Cookies.remove('token', { path: '' });
+    router.push('/auth/login');
   };
-  console.log(props);
   const onButtonClick = () => {
     inputFile.current.click();
   };
@@ -25,16 +24,14 @@ export default function Personalinfo(props) {
     if (event.target.files && event.target.files[0]) {
       // const { name, value } = event.target;
       const formData = new FormData();
-      formData.append("image", event.target.files[0]);
-      console.log("JALANIN");
+      formData.append('image', event.target.files[0]);
       axios
         .patch(`/user/image/${props.data.id}`, formData)
         .then((res) => {
           props.dispatch(props.data.id);
-          Notify("Berhasil Mengganti Image Profile!", 200);
+          Notify('Berhasil Mengganti Image Profile!', 200);
         })
         .catch((err) => {
-          console.log(err);
           // err.response.data.msg && Notify(err.response.data.msg, 400);
         });
     }
@@ -46,7 +43,7 @@ export default function Personalinfo(props) {
           src={
             props.data.image
               ? `${process.env.URL_BACKEND}/uploads/${props.data.image}`
-              : "/image/avatard.png"
+              : '/image/avatard.png'
           }
           className={` ${Styles.navbar__image}`}
           alt=""
@@ -59,22 +56,22 @@ export default function Personalinfo(props) {
               id="file"
               ref={inputFile}
               onChange={handleChangeImage}
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
             />
 
             <span className={`align-self-center ${Styles.geser}`}>Edit</span>
           </button>
         </div>
         <p className={`${Styles.nama__user}`}>
-          {props.data.firstName + " " + props.data.lastName}
+          {props.data.firstName + ' ' + props.data.lastName}
         </p>
         <small className={`${Styles.mobile__user}`}>
-          {props.data.noTelp ? props.data.noTelp : "+62 xxxx xxxx xxxx"}{" "}
+          {props.data.noTelp ? props.data.noTelp : '+62 xxxx xxxx xxxx'}{' '}
         </small>
         <br />
         <button
           className={`${Styles.btn__list} btn mt-5 `}
-          onClick={() => props.changePage("personalInfo")}
+          onClick={() => props.changePage('personalInfo')}
         >
           <div
             className={`d-flex justify-content-between ${Styles.btn__detail}`}
@@ -86,7 +83,7 @@ export default function Personalinfo(props) {
         <br />
         <button
           className={`${Styles.btn__list} btn `}
-          onClick={() => props.changePage("ManagePassword")}
+          onClick={() => props.changePage('ManagePassword')}
         >
           <div
             className={`d-flex justify-content-between ${Styles.btn__detail}`}
@@ -98,7 +95,7 @@ export default function Personalinfo(props) {
         <br />
         <button
           className={`${Styles.btn__list} btn `}
-          onClick={() => props.changePage("CheckPin")}
+          onClick={() => props.changePage('CheckPin')}
         >
           <div
             className={`d-flex justify-content-between ${Styles.btn__detail}`}
@@ -110,7 +107,7 @@ export default function Personalinfo(props) {
         <br />
         <button className={`${Styles.btn__list} btn `} onClick={handleLogout}>
           <p
-            style={{ textAlign: "start", fontWeight: "600" }}
+            style={{ textAlign: 'start', fontWeight: '600' }}
             className="p-0 m-0"
           >
             Logout

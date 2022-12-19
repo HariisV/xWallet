@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import Styles from "components/layout/navbar/navbar.module.css";
-import Link from "next/link";
-import { connect } from "react-redux";
-import Dashboard from "components/Icon/dashboard";
-import Transfer from "components/Icon/transfer";
-import Topup from "components/Icon/topup";
-import Profile from "components/Icon/profile";
-import ModalTopup from "components/topup";
-import { useRouter } from "next/router";
-import Cookies from "js-cookie";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Styles from 'components/layout/navbar/navbar.module.css';
+import Link from 'next/link';
+import { connect } from 'react-redux';
+import Dashboard from 'components/Icon/dashboard';
+import Transfer from 'components/Icon/transfer';
+import Topup from 'components/Icon/topup';
+import Profile from 'components/Icon/profile';
+import ModalTopup from 'components/topup';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 // import { useRouter } from "next/router";
 
 const Navbar = (props) => {
@@ -17,20 +17,19 @@ const Navbar = (props) => {
   const [showModal, setShowModal] = useState(false);
   const handleCloseTopup = () => setShowModal(false);
   const handleShowTopup = () => setShowModal(true);
-  const [balance, setBalance] = useState("");
+  const [balance, setBalance] = useState('');
   const router = useRouter();
   const handleLogout = () => {
     localStorage.clear();
-    Cookies.remove("token", { path: "" });
-    router.push("/auth/login");
+    Cookies.remove('token', { path: '' });
+    router.push('/auth/login');
   };
-  // console.log();
   return (
     <>
       <div className={`${Styles.shadow} bg-white`}>
         <div className={`container ${Styles.navbar}`}>
           <div className="d-flex justify-content-between">
-            <div style={{ cursor: "pointer", padding: 0, margin: 0 }}>
+            <div style={{ cursor: 'pointer', padding: 0, margin: 0 }}>
               <Link href="/" alt="" passHref>
                 <Image
                   src="/icon/logo.svg"
@@ -47,7 +46,7 @@ const Navbar = (props) => {
                 src={
                   data.image
                     ? `${process.env.URL_BACKEND}/uploads/${data.image}`
-                    : "/image/avatard.png"
+                    : '/image/avatard.png'
                 }
                 className={`d-content ${Styles.navbar__image}`}
                 alt=""
@@ -57,7 +56,7 @@ const Navbar = (props) => {
                   {data.firstName + data.lastName}
                 </p>
                 <small className={`${Styles.navbar__user__phone}`}>
-                  {data.noTelp ? data.noTelp : "+62 xxxx xxxx xxxx"}
+                  {data.noTelp ? data.noTelp : '+62 xxxx xxxx xxxx'}
                 </small>
               </div>
             </div>

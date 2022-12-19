@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import axios from "utils/axios";
-import { Notify, ContainerToast } from "components/layout/notify";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import Sidebar from "components/auth/sidebar";
-import Layout from "components/layout";
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import axios from 'utils/axios';
+import { Notify, ContainerToast } from 'components/layout/notify';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Sidebar from 'components/auth/sidebar';
+import Layout from 'components/layout';
 
-import { getDataCookie } from "middleware/authorizationPage";
+import { getDataCookie } from 'middleware/authorizationPage';
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
   if (dataCookie.isLogin) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: '/dashboard',
         permanent: false,
       },
     };
@@ -30,18 +30,18 @@ export default function Forgot() {
       email: form.email,
       linkDirect: `${process.env.URL_FRONTEND}/auth/forgot-password`,
     };
-    // /console.log("asdasdas", setData.linkDirect);
+    // /
     axios
-      .post("/auth/forgot-password", setData)
+      .post('/auth/forgot-password', setData)
       .then((res) => {
-        Notify("Berhasil ! Silahkan Periksa Email Anda.", 200);
+        Notify('Berhasil ! Silahkan Periksa Email Anda.', 200);
         setTimeout(() => {
-          router.push("/auth/login");
+          router.push('/auth/login');
         }, 2000);
       })
       .catch((err) => {
         Notify(err.response.data.msg, 400);
-        // console.log(err.response);
+        //
       });
   };
   return (
@@ -94,8 +94,8 @@ export default function Forgot() {
             )}
 
             <p className="text-center mt-3 auth__text">
-              Don’t have an account? Let’s{" "}
-              <Link href="/auth/register" style={{ color: "#3A3D42CC" }}>
+              Don’t have an account? Let’s{' '}
+              <Link href="/auth/register" style={{ color: '#3A3D42CC' }}>
                 Sign Up
               </Link>
             </p>

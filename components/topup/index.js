@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Styles from "components/layout/sidebar/sidebar.module.css";
-import axios from "utils/axios";
-import { Notify } from "components/layout/notify";
-import BtnNull from "components/btn/null";
-import BtnLoading from "components/btn/loading";
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Styles from 'components/layout/sidebar/sidebar.module.css';
+import axios from 'utils/axios';
+import { Notify } from 'components/layout/notify';
+import BtnNull from 'components/btn/null';
+import BtnLoading from 'components/btn/loading';
 
 export default function Topup(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,8 +12,8 @@ export default function Topup(props) {
     const theEvent = evt || window.event;
     let key;
     // Handle paste
-    if (theEvent.type === "paste") {
-      key = event.clipboardData.getData("text/plain");
+    if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
     } else {
       // Handle key press
       key = theEvent.keyCode || theEvent.which;
@@ -28,34 +28,31 @@ export default function Topup(props) {
 
   const handleChange = (e) => {
     props.setBalance(
-      Number(e.target.value.replace(/[^0-9]/g, ""))
-        .toLocaleString("id-ID", {
-          style: "currency",
-          currency: "IDR",
+      Number(e.target.value.replace(/[^0-9]/g, ''))
+        .toLocaleString('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
         })
-        .replace(/,(.*)/g, "")
+        .replace(/,(.*)/g, '')
     );
   };
   const submitTopup = () => {
     setIsLoading(true);
     const data = {
-      amount: props.balance.replace(/,(.*)/g, "").replace(/[^0-9]/g, ""),
+      amount: props.balance.replace(/,(.*)/g, '').replace(/[^0-9]/g, ''),
     };
 
     axios
-      .post("/transaction/top-up", data)
+      .post('/transaction/top-up', data)
       .then((res) => {
-        Notify("Berhasil Topup, Bayar Sekarang!", 200);
-        console.log("SUKSES");
+        Notify('Berhasil Topup, Bayar Sekarang!', 200);
         setTimeout(() => {
           props.handleCloseTopup();
           props.setBalance(0);
-          window.open(res.data.data.redirectUrl, "_blank");
+          window.open(res.data.data.redirectUrl, '_blank');
         }, 3000);
       })
-      .catch((err) => {
-        console.log(err.response);
-      })
+      .catch((err) => {})
       .finally(() => {
         setTimeout(() => {
           setIsLoading(false);

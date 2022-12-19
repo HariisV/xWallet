@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
-import Input from "components/auth/input";
-import axios from "utils/axios";
-import { Notify, ContainerToast } from "components/layout/notify";
-import Link from "next/link";
-import Leftbar from "components/auth/sidebar";
-import Layout from "components/layout";
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import Input from 'components/auth/input';
+import axios from 'utils/axios';
+import { Notify, ContainerToast } from 'components/layout/notify';
+import Link from 'next/link';
+import Leftbar from 'components/auth/sidebar';
+import Layout from 'components/layout';
 
-import { getDataCookie } from "middleware/authorizationPage";
+import { getDataCookie } from 'middleware/authorizationPage';
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
   if (dataCookie.isLogin) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: '/dashboard',
         permanent: false,
       },
     };
@@ -34,24 +34,24 @@ const Post = () => {
       confirmPassword: form.confirmPassword,
     };
     axios
-      .patch("/auth/reset-password", setData)
+      .patch('/auth/reset-password', setData)
       .then((res) => {
-        Notify("Berhasil Reset Password, Silahkan Login Sekarang!", 200);
+        Notify('Berhasil Reset Password, Silahkan Login Sekarang!', 200);
         setTimeout(() => {
-          router.push("/auth/login");
+          router.push('/auth/login');
         }, 2000);
       })
       .catch((err) => {
         Notify(err.response.data.msg, 400);
-        console.log(err.response);
+
         setTimeout(() => {
-          router.push("/auth/forgot-password");
+          router.push('/auth/forgot-password');
         }, 2000);
       });
   };
   const handleChange = (e) => {
-    // console.log("HALO");
-    console.log(form);
+    //
+
     setForm({ ...form, [e.target.name]: e.target.value });
     if (form.newPassword && form.confirmPassword) {
       setIsNull(false);
@@ -102,8 +102,8 @@ const Post = () => {
             )}
 
             <p className="text-center mt-3 auth__text">
-              Don’t have an account? Let’s{" "}
-              <Link href="/auth/register" style={{ color: "#3A3D42CC" }}>
+              Don’t have an account? Let’s{' '}
+              <Link href="/auth/register" style={{ color: '#3A3D42CC' }}>
                 Sign Up
               </Link>
             </p>

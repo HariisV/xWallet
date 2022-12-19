@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Layout from "components/layout";
-import Navbar from "components/basic/Navbar";
-import axios from "utils/axios";
-import { getDataCookie } from "middleware/authorizationPage";
+import React, { useState, useEffect } from 'react';
+import Layout from 'components/layout';
+import Navbar from 'components/basic/Navbar';
+import axios from 'utils/axios';
+import { getDataCookie } from 'middleware/authorizationPage';
 
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
   if (!dataCookie.isLogin) {
     return {
       redirect: {
-        destination: "/auth/login",
+        destination: '/auth/login',
         permanent: false,
       },
     };
   }
 }
 export default function Profile(props) {
-  // console.log(props);
+  //
   return (
     <Layout title="Profile">
       <Navbar />
@@ -41,10 +41,10 @@ export default function Profile(props) {
 //     axios
 //       .get("/user?page=1&limit=2&search=&sort=")
 //       .then((res) => {
-//         console.log(res);
+//
 //       })
 //       .catch((err) => {
-//         console.log(err.response);
+//
 //       });
 //   };
 //   return (

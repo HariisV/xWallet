@@ -1,8 +1,7 @@
-import React from "react";
-import Styles from "styles/Home.module.css";
+import React from 'react';
+import Styles from 'styles/Home.module.css';
 
 export default function index(props) {
-  console.log(props);
   return (
     <div className="d-flex mb-4 mt-3 justify-content-between">
       <div className="d-flex">
@@ -10,7 +9,7 @@ export default function index(props) {
           src={
             props.image
               ? `${process.env.URL_BACKEND}/uploads/${props.image}`
-              : "/image/avatard.png"
+              : '/image/avatard.png'
           }
           alt=""
           width="50px"
@@ -20,32 +19,32 @@ export default function index(props) {
         <div className="d-block">
           <p className={`p-0 m-0 ${Styles.name}`}>{props.name}</p>
           <small className={`${Styles.type}`}>
-            {props.type == "topup"
-              ? "Topup"
-              : props.type == "accept"
-              ? "Accept"
-              : props.type == "send"
-              ? "Transfer"
-              : ""}
+            {props.type == 'topup'
+              ? 'Topup'
+              : props.type == 'accept'
+              ? 'Accept'
+              : props.type == 'send'
+              ? 'Transfer'
+              : ''}
           </small>
         </div>
       </div>
       <div>
         <p
           className={`${
-            props.type == "topup"
-              ? props.status == "success"
+            props.type == 'topup'
+              ? props.status == 'success'
                 ? Styles.topup
                 : Styles.pending
-              : props.type == "send"
+              : props.type == 'send'
               ? Styles.transfer
-              : props.type == "accept"
+              : props.type == 'accept'
               ? Styles.topup
-              : ""
+              : ''
           }`}
         >
-          {props.type == "send" ? "-" : "+"} Rp{" "}
-          {props.total.toLocaleString("id-ID")}
+          {props.type == 'send' ? '-' : '+'} Rp{' '}
+          {props.total.toLocaleString('id-ID')}
         </p>
       </div>
     </div>
